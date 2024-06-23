@@ -22,7 +22,7 @@ Este proyecto implementa el juego "El Zorro y Las Ocas" utilizando assembler Int
 - Ofrecer personalización de la partida:
   - Símbolo del zorro y de las ocas.
   - Orientación del tablero.
-- Configuración por defecto según la imagen proporcionada.
+  - Configuración por defecto según la imagen proporcionada.
 
 ## Compilación e Instalación
 

@@ -8,7 +8,7 @@ ASM_SRCS = $(wildcard *.asm)
 ASM_OBJS = $(ASM_SRCS:.asm=.o)
 
 # Flags para nasm y gcc
-NASM_FLAGS = -f elf64
+NASM_FLAGS = -f elf64 -g -F dwarf
 GCC_FLAGS = -no-pie
 
 # Compilador y enlazador
@@ -20,18 +20,19 @@ all: $(EXEC)
 
 # Regla para compilar cada archivo .asm a un objeto .o
 %.o: %.asm
-	$(NASM) $(NASM_FLAGS) $< -o $@
-
-# Regla para compilar todos los archivos .asm
-compile: $(ASM_OBJS)
+	$(NASM) $(NASM_FLAGS) -l $*.lst $< -o $@
 
 # Regla para enlazar los objetos y crear el ejecutable
 $(EXEC): $(ASM_OBJS)
 	$(GCC) $(GCC_FLAGS) -o $@ $^
 
+# Regla para compilar y enlazar todos los archivos .asm
+test: $(ASM_SRCS)
+	$(NASM) $(NASM_FLAGS) $^
+	$(GCC) $(GCC_FLAGS) -o $(EXEC) $(ASM_OBJS)
+
 # Regla de limpieza
 clean:
-	rm -f $(ASM_OBJS) $(EXEC)
+	rm -f $(ASM_OBJS) $(EXEC) *.lst
 
-.PHONY: all compile clean
-
+.PHONY: all test clean
