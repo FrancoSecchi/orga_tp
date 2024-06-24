@@ -1,5 +1,5 @@
-global cargar_partida
-global guardar_partida
+global cargar_partida_archivo
+global guardar_partida_archivo
 
 extern fopen
 extern fread
@@ -41,8 +41,7 @@ section .text
 %endmacro
 
 
-
-cargar_partida: 
+cargar_partida_archivo: 
     abrir_archivo
     
     cmp rax, 0
@@ -51,21 +50,19 @@ cargar_partida:
     mov qword[id_archivo], rax
     mov qword[estado_accion], rax
 
-    _printf mensaje
-    
+
     cerrar_archivo
 
     cmp rax, qword[estado_accion]
-    je imprimirMesanjeError
+    je imprimir_mesanje_error
 
-    _printf mensaje2
 
     ret
 
-guardar_partida: 
+guardar_partida_archivo: 
 
 
-imprimirMesanjeError: 
+imprimir_mesanje_error: 
     _printf msg_error
     mov rax, 0
     ret

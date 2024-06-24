@@ -1,4 +1,4 @@
-global validarEleccionMenu
+global validar_eleccion_menu
 
 section .data
     opcion_cargar             db "1",0
