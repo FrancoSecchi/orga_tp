@@ -62,7 +62,6 @@ cargarPartida:
     cmp rax, 0
     je finalizar_juego
     
-    _printf mensaje1
     jmp finalizar_juego
 
 
