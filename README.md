@@ -34,12 +34,13 @@ Asegúrate de tener instalado un ensamblador compatible con Intel 86_64, como `n
 
 Para primero compilar los archivo `asm` hay que ejecutar 
 ```bash
-    make compile
+    make 
 ```
 
-Para obtener el ejecutable, ejecutar el siguiente comando: 
+Con eso se te va a generar un ejecutable llamado `tp`, para poder correr el programa hay que hacer: 
+
 ```bash
-    make tp
+    ./tp
 ```
 
 Para borrar los ejecutables se ejecuta: 
