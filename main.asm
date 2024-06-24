@@ -11,7 +11,6 @@ extern validar_eleccion_jugada
 section .data
     mensaje_menu             db "Menu principal",10,10,"Vamos a jugar al Zorro y las Ocas!",10,"Seleccione una opción para jugar (ingresar número de opción)",10,"  0 - Nueva partida",10,"  1 - Cargar partida",10,0 
     mensaje_opcion_incorrecta     db "La opcion elegida no es valida, por favor ingrese una opcion valida.",10,0 
-    len_tabero equ 7*7 ; 
     mensaje_controles_generales db "CONTROLES: Los controles ingresados deben estar en MAYÚSCULAS",10," Ingresar uno de los caracteres indicados.",10,"(G) Guardar Partida - (S) Salir del Juego - (1 - 9) Movimiento",10,0
 
     mensaje_entrada db "Ingrese una opcion:  ",0
@@ -23,9 +22,26 @@ section .data
     mensaje_final db "Fin del juego",10,0
 
 section .bss
+    ; Define una etiqueta que apunta a todo el bloque de memoria que almacena el estado del juego.
+    ; Este bloque consiste en múltiples variables, cada una representando una parte del estado del juego.
+    ; El tamaño total de este bloque es de 95 bytes.
+    ; 
+    ; "times 0 resb 95" no reserva espacio adicional, simplemente crea una etiqueta
+    ; que apunta a la ubicación donde se encuentran las siguientes variables.
+    registroDatosPartida    times 0 resb 95 ; Es una etiqueta 
 
-    buffer_input resb 100 
-    tablero resb 49 ;Matriz de 7*7  
+    ; Variables de partida - en orden específico.
+    ; Todos los simbolos son un carácter ASCII
+    tablero                 resb 49         
+      
+
+    tablero        db -1,-1, 1, 1, 1,-1,-1
+                   db -1,-1, 1, 1, 1,-1,-1
+                   db  1, 1, 1, 1, 1, 1, 1
+                   db  1, 0, 0, 0, 0, 0, 1
+                   db  1, 0, 0, 3, 0, 0, 1
+                   db -1,-1, 0, 0, 0,-1,-1
+                   db -1,-1, 0, 0, 0,-1,-1
 
 
 section .text
@@ -65,14 +81,14 @@ cargar_partida:
     cmp rax, 0 ;En el caso que haya habido un problema con la apertura, escritura o clausura del archivo, se termina el programa
     je finalizar_juego
 
-    jmp empezar_turno
+    jmp jugar
 
 
 nueva_partida: 
     _printf mensaje2
     jmp finalizar_juego
 
-empezar_turno: 
+jugar: 
     ;Acá se imprime el tablero
     _printf mensaje_controles_generales
 

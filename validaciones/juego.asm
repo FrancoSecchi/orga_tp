@@ -1,14 +1,11 @@
 global validar_eleccion_jugada
 
-
-
 section .data
 
     caracter_salir_juego db "S",0
 
 section .bss
     caracter_ingresado  resb 1
-
 section .text
 
 validar_eleccion_jugada: 
