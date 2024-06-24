@@ -9,27 +9,27 @@ section .bss
 
 section .text
 
-validarEleccionMenu:
+validar_eleccion_menu:
     mov al, [rdi] ; en rdi esta el valor del buffer_input y lo mando al registro "al" ya qu es de 1 byte
     mov [caracter_ingresado], al
 
     mov al, [opcion_cargar]
     cmp al, [caracter_ingresado] ;Comparo si la opcion que eligio es la de cargar
-    je eleccionCargarPartida
+    je eleccion_cargar_partida
 
     mov al,[opcion_nueva_partida]
     cmp al,[caracter_ingresado] ;Comparo si la opcion que eligio es la de nueva partida
-    je  eleccionNuevaPartida
+    je  eleccion_nueva_partida
 
 
-opcionInvalida:
+opcion_invalida:
     mov     rax,-1
     ret
 
-eleccionCargarPartida:
+eleccion_cargar_partida:
     mov     rax,1 
     ret
 
-eleccionNuevaPartida:
+eleccion_nueva_partida:
     mov     rax, 0
     ret
