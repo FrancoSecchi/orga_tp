@@ -1,9 +1,9 @@
 global main
 
-%include "macros.asm"
+%include "utils_macros.asm"
 
 
-extern leer_archivo
+extern cargar_partida
 extern guardar_archivo
 extern validarEleccionMenu
 
@@ -16,6 +16,7 @@ section .data
 
     mensaje1 db "Cargar partida",10,0
     mensaje2 db "Nueva partida",10,0
+    mensaje3 db "Fin del juego",10,0
 
 section .bss
 
@@ -53,6 +54,14 @@ eleccionPartida:
     jmp menu_eleccion
 
 cargarPartida:  
+    
+    sub rsp, 8
+    call cargar_partida
+    add rsp, 8
+
+    cmp rax, 0
+    je finalizar_juego
+    
     _printf mensaje1
     jmp finalizar_juego
 
@@ -68,5 +77,6 @@ nuevaPartida:
     ; 
 
 finalizar_juego: 
+    _printf mensaje3
     ret
 
