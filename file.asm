@@ -9,6 +9,6 @@ section .data
 section .text
 
 leer_partida: 
-
+    
 
 guardar_partida: 
