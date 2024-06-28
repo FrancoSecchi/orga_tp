@@ -169,7 +169,10 @@ finalizar_juego:
     ;.....
     ret
 
+<<<<<<< HEAD
 
 
 
 ;
+=======
+>>>>>>> refs/remotes/origin/master
