@@ -173,3 +173,4 @@ finalizar_juego:
 
 
 ;Hola a todos
+;shsh
