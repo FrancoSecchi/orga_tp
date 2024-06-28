@@ -1,6 +1,8 @@
 %include "utils_macros.asm"
 
-global personalizaTabla
+global personalizaTablero
+global mostrarTablero
+
 
 extern validarOrientacion
 
@@ -63,7 +65,7 @@ section .bss
 
 
 
-personalizaTabla
+personalizaTablero
     _printf, mensajePersonalizar
     _gets, input ; chequar si necesita tabla personalizada
 
@@ -86,7 +88,7 @@ personalizaTabla
 
     ;si es 3, no modifica nada
     cmp     rax, 3
-    je      mostrar_tabla
+    je      CrearTablero
     
 
 personalizaOrientacion
@@ -103,7 +105,7 @@ personalizaOrientacion
     ; si es valido, guarda en orientacion
     mov     al, [input]
     mov     [orientacion], al
-    jmp     personalizaTabla
+    jmp     personalizaTablero
 
 orientacionInvalido
     _printf, mensajeCaracterInvalido
@@ -114,13 +116,13 @@ personalizaOcas
     _printf, mensajeIngresarSimboloOcas
     _gets, simboloOcas ; no puede ser igual que el simbolo de zorro
     mov     al, [input]
-    cmp     al, simboloZorro
+    cmp     al, [simboloZorro]
     je      simboloOcasInvalido
 
     ; si es valido, guarda en ocas
     mov     al, [input]
     mov     [ocas], al
-    jmp     personalizaTabla
+    jmp     personalizaTablero
 
 
 simboloOcasInvalido
@@ -131,13 +133,62 @@ simboloOcasInvalido
 personalizaZorro
     _printf, mensajeIngresarSimboloZorro
     _gets, simboloZorro
+    mov     al, [input]
+    cmp     al, [simboloOcas]
+    je      simboloZorroInvalido
+
+    ; si es valido, guarda en zorro
+    mov     al, [input]
+    mov     [simboloZorro], al
+    jmp     personalizaTablero
 
 simboloZorroInvalido
     _printf, mensajeCaracterInvalido
     jmp personalizacionZorro
     ret
 
-mostrar_tabla:
+CrearTablero:
     mov     al, [orientacion]
+
     cmp     al, [orientacionEste]
+    je      elegir_tableroEste
+
+    cmp     al, [orientacionOeste]
+    je      elegir_tableroOeste
+    
+    cmp     al, [orientacionSur]
+    je      elegir_tableroSur
+
+    ; si es vacio o es Norte
+    je      elegir_tableroNorte
+
+
+elegir_tableroEste:
+    mov     rsi, tableroEste ; pasa la direccion de tabla a rsi
+    jmp     copiarTablero
+
+elegir_tableroOeste:
+    mov     rsi, tableroOeste ; pasa la direccion de tabla a rsi
+    jmp     copiarTablero
+
+elegir_tableroSur:
+    mov     rsi, tableroSur ; pasa la direccion de tabla a rsi
+    jmp     copiarTablero
+
+elegir_tableroNorte:
+    mov     rsi, tableroNorte ; pasa la direccion de tabla a rsi
+    jmp     copiarTablero
+
+; Va a copiar el cotenido de tabla de memoria apuntado por RSI en RDI
+; Compiar tanto bytes como indicado en rcx
+copiarTablero:
+    mov     rdi, tablero
+    mov     rcx, 49
+    rep movsb
+    ret
+
+mostrarTablero:
+    _printf, tablero
+    ret
+
 

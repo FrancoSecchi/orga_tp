@@ -7,6 +7,8 @@ extern cargar_partida_archivo
 extern guardar_partida_archivo
 extern validar_eleccion_menu
 extern validar_eleccion_jugada
+extern personalizaTablero
+extern mostrarTablero
 
 section .data
     mensaje_menu             db "Menu principal",10,10,"Vamos a jugar al Zorro y las Ocas!",10,"Seleccione una opción para jugar (ingresar número de opción)",10,"  0 - Nueva partida",10,"  1 - Cargar partida",10,0 
@@ -32,7 +34,41 @@ section .bss
 
     ; Variables de partida - en orden específico.
 
+    ; Todos los simbolos son un carácter ASCII
+    tablero                 resb 49         
 
+    ;  -1 : lugar invalido, 1: ocas, 2: zorro, 0: lugar vacio 
+    tableroNorte        db -1,-1, 1, 1, 1,-1,-1
+                        db -1,-1, 1, 1, 1,-1,-1
+                        db  1, 1, 1, 1, 1, 1, 1
+                        db  1, 0, 0, 0, 0, 0, 1
+                        db  1, 0, 0, 2, 0, 0, 1
+                        db -1,-1, 0, 0, 0,-1,-1
+                        db -1,-1, 0, 0, 0,-1,-1
+    
+    tableroSur          db -1,-1, 0, 0, 0,-1,-1
+                        db -1,-1, 0, 0, 0,-1,-1
+                        db  1, 0, 0, 2, 0, 0, 1
+                        db  1, 0, 0, 0, 0, 0, 1
+                        db  1, 1, 1, 1, 1, 1, 1
+                        db -1,-1, 1, 1, 1,-1,-1
+                        db -1,-1, 1, 1, 1,-1,-1
+    
+    tableroEste         db -1,-1, 1, 1, 1,-1,-1
+                        db -1,-1, 0, 0, 1,-1,-1
+                        db  0, 0, 0, 0, 1, 1, 1
+                        db  0, 0, 2, 0, 1, 1, 1
+                        db  0, 0, 0, 0, 1, 1, 1
+                        db -1,-1, 0, 0, 1,-1,-1
+                        db -1,-1, 1, 1, 1,-1,-1
+
+    tableroOeste        db -1,-1, 1, 1, 1,-1,-1
+                        db -1,-1, 1, 0, 0,-1,-1
+                        db  1, 1, 1, 0, 0, 0, 0
+                        db  1, 1, 1, 0, 2, 0, 0
+                        db  1, 1, 1, 0, 0, 0, 0
+                        db -1,-1, 1, 0, 0,-1,-1 
+                        db -1,-1, 1, 1, 1,-1,-1
 
 section .text
 
@@ -81,6 +117,8 @@ nueva_partida:
 jugar: 
     ;Acá se imprime el tablero
     _printf mensaje_controles_generales
+    call    personalizaTablero
+    call    mostrarTablero
 
 ingresar_jugada: 
     _gets buffer_input
