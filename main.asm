@@ -71,6 +71,8 @@ section .data
 
 
 section .bss
+
+    buffer_input    resb   1
     ; Define una etiqueta que apunta a todo el bloque de memoria que almacena el estado del juego.
     ; Este bloque consiste en múltiples variables, cada una representando una parte del estado del juego.
     ; El tamaño total de este bloque es de 95 bytes.
@@ -153,14 +155,19 @@ ingresar_jugada:
     cmp rax, 2 ; Si elige finalizar la partida, salta al final del juego
     je finalizar_juego
 
-    cmp mov_adelante, [rax]
-    inc mov_ad
+    ; cmp mov_adelante, [rax]
+    ; inc mov_ad
 
     cmp byte[turno_de_zorro_oca],0
     je turno_zorro ;movimiento del zorro
     cmp byte[turno_de_zorro_oca],1
     je turno_oca   ;movimiento de la oca
 
+turno_zorro:
+    ret
+
+turno_oca:
+    ret
 
 
 finalizar_juego: 
