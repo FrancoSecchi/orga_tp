@@ -168,6 +168,10 @@ ingresar_jugada:
     je turno_oca   ;movimiento de la oca
 
 turno_zorro:
+
+    ; sub rsp, 8
+    ; call buscar_zorro
+    ; add  rsp, 8
     ret
 
 turno_oca:
