@@ -189,7 +189,7 @@ copiarTablero:
     ret
 
 mostrarTablero:
-    _printf tablero
+    _printf rdi
     ret
 
 
