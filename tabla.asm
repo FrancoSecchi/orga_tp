@@ -66,7 +66,7 @@ section .bss
 
 
 personalizaTablero
-    _printf, mensajePersonalizar
+    _printf mensajePersonalizar
     _gets, input ; chequar si necesita tabla personalizada
 
     mov     rdi, [input]
@@ -92,8 +92,8 @@ personalizaTablero
     
 
 personalizaOrientacion
-    _printf, mensajeIngresarOrientacion
-    _gets, input ; guarda la orientacion en input
+    _printf mensajeIngresarOrientacion
+    _gets input ; guarda la orientacion en input
     mov     rdi, [input]
     sub     rsp, 8
     call    validarOrientacion ; verifica si el input es valido
@@ -108,13 +108,13 @@ personalizaOrientacion
     jmp     personalizaTablero
 
 orientacionInvalido
-    _printf, mensajeCaracterInvalido
+    _printf mensajeCaracterInvalido
     jmp     personalizaOrientacion
     ret
 
 personalizaOcas
     _printf, mensajeIngresarSimboloOcas
-    _gets, simboloOcas ; no puede ser igual que el simbolo de zorro
+    _gets simboloOcas ; no puede ser igual que el simbolo de zorro
     mov     al, [input]
     cmp     al, [simboloZorro]
     je      simboloOcasInvalido
@@ -126,13 +126,13 @@ personalizaOcas
 
 
 simboloOcasInvalido
-    _printf, mensajeCaracterInvalido
+    _printf mensajeCaracterInvalido
     jmp personalizaOcas
     ret
 
 personalizaZorro
-    _printf, mensajeIngresarSimboloZorro
-    _gets, simboloZorro
+    _printf mensajeIngresarSimboloZorro
+    _gets simboloZorro
     mov     al, [input]
     cmp     al, [simboloOcas]
     je      simboloZorroInvalido
@@ -143,7 +143,7 @@ personalizaZorro
     jmp     personalizaTablero
 
 simboloZorroInvalido
-    _printf, mensajeCaracterInvalido
+    _printf mensajeCaracterInvalido
     jmp personalizacionZorro
     ret
 
@@ -188,7 +188,7 @@ copiarTablero:
     ret
 
 mostrarTablero:
-    _printf, tablero
+    _printf tablero
     ret
 
 
