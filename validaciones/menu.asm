@@ -64,12 +64,8 @@ validar_ingreso_personalizacion:
     cmp     alm [caracterAValidar]
     je      validarOrientacion
 
-
-
-
 validarOrientacion:
-    mov     al, [rdi] ; en rdi esta el valor del input
-    mov     [caracter_ingresado], al
+    mov     [caracter_ingresado], byte[rdi] ; en rdi esta el valor del input
 
     mov     al, [orientacionNorte]
     cmp     al, [caracter_ingresado] ;Comparo si ingresa la orientacion norte

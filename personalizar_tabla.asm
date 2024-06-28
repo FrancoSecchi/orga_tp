@@ -29,8 +29,27 @@ personalizaTabla
     _printf, mensajePersonalizar
     _gets, input ; chequar si necesita tabla personalizada
 
-    mov     rdi, 8
+    mov     rdi, [input]
+    sub     rep, 8
     call    personalización
+    add     rep, 8
+
+    ;si es 0, se modifica la orientacion
+    cmp     rax, 0
+    je      personalizacionOrientacion
+
+    ;si es 1, se modifica el simbolo de oca
+    cmp     rax, 1
+    je      personalizacionOcas
+
+    ;si es 2, se modifica el simbolo de zorro
+    cmp     rax, 2
+    je      personalizacionZorro
+
+    ;si es 3, no modifica nada
+    cmp     rax, 3
+    je      
+    
 
 personalizaOrientacion
     _printf, mensajeIngresarOrientacion
@@ -46,11 +65,12 @@ personalizaOrientacion
     ; si es valido, guardo en orientacion
     mov     al, [input]
     mov     [orientacion], al
-    jmp     personalizaOcas
+    jmp     personalizaTabla
 
 orientacionInvalido
     _printf, mensajeCaracterInvalido
     jmp     personalizaOrientacion
+    ret
 
 personalizaOcas
     _printf, mensajeIngresarSimboloOcas
