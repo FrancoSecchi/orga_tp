@@ -1,5 +1,6 @@
 global validar_eleccion_menu
 global validar_ingreso_personalizacion
+global validarOrientacion
 
 section .data
     opcion_cargar                       db "1",0

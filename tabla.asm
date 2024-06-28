@@ -5,6 +5,7 @@ global mostrarTablero
 
 
 extern validarOrientacion
+extern validar_ingreso_personalizacion
 
 section .data
     mensajePersonalizar  db " ** PERSONALIZACIÓN **",10,10," Este es el menú de personalización de partida. Si se quiere jugar con las configuraciones por defecto, ingrese 3 sin modificar nada.",10, " 0 - Personalizar la tabla (default: N)", 10, " 1 - Personalizar el simbolo del zorro (default: X)", 10, "2 - Personalizar el simbolo de ocas (default: O)", 10, 0
@@ -21,8 +22,7 @@ section .data
     mensajeIngresarSimboloOcas  db "Ingrese un símbolo para representar las OCAS. No puede ser un espacio ni tampoco el símbolo del zorro.",10,0
     mensajeIngresarSimboloZorro db "Ingrese un símbolo para representar el ZORRO. No puede ser un espacio ni tampoco el símbolo de las ocas.",10,0
 
-    ; Todos los simbolos son un carácter ASCII
-    tablero                 resb 49         
+    ; Todos los simbolos son un carácter ASCII   
 
     ;  -1 : lugar invalido, 1: ocas, 2: zorro, 0: lugar vacio 
     tableroNorte        db -1,-1, 1, 1, 1,-1,-1
@@ -62,6 +62,7 @@ section .bss
     orientacion             resb 1 ; es un char ascii
     simboloOcas             resb 1 ; es un char ascii
     simboloZorro            resb 1 ; es un char ascii
+    tablero                 resb 49      
 
 section .text
 
@@ -121,7 +122,7 @@ personalizaOcas:
 
     ; si es valido, guarda en ocas
     mov     al, [input]
-    mov     [ocas], al
+    mov     [simboloOcas], al
     jmp     personalizaTablero
 
 
