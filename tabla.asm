@@ -65,14 +65,14 @@ section .bss
 
 
 
-personalizaTablero
+personalizaTablero:
     _printf mensajePersonalizar
     _gets  input ; chequar si necesita tabla personalizada
 
     mov     rdi, [input]
-    sub     rep, 8
+    sub     rsp, 8
     call    validar_ingreso_personalizacion
-    add     rep, 8
+    add     rsp, 8
 
     ;si es 0, se modifica la orientacion
     cmp     rax, 0
@@ -91,13 +91,13 @@ personalizaTablero
     je      CrearTablero
     
 
-personalizaOrientacion
+personalizaOrientacion:
     _printf mensajeIngresarOrientacion
     _gets input ; guarda la orientacion en input
     mov     rdi, [input]
     sub     rsp, 8
     call    validarOrientacion ; verifica si el input es valido
-    add     rep, 8
+    add     rsp, 8
 
     cmp     rax, 0 ; si es menor que 0, el input es invalido
     jl      orientacionInvalido
@@ -107,12 +107,12 @@ personalizaOrientacion
     mov     [orientacion], al
     jmp     personalizaTablero
 
-orientacionInvalido
+orientacionInvalido:
     _printf mensajeCaracterInvalido
     jmp     personalizaOrientacion
     ret
 
-personalizaOcas
+personalizaOcas:
     _printf  mensajeIngresarSimboloOcas
     _gets simboloOcas ; no puede ser igual que el simbolo de zorro
     mov     al, [input]
@@ -125,12 +125,12 @@ personalizaOcas
     jmp     personalizaTablero
 
 
-simboloOcasInvalido
+simboloOcasInvalido:
     _printf mensajeCaracterInvalido
     jmp personalizaOcas
     ret
 
-personalizaZorro
+personalizaZorro:
     _printf mensajeIngresarSimboloZorro
     _gets simboloZorro
     mov     al, [input]
@@ -142,7 +142,7 @@ personalizaZorro
     mov     [simboloZorro], al
     jmp     personalizaTablero
 
-simboloZorroInvalido
+simboloZorroInvalido:
     _printf mensajeCaracterInvalido
     jmp personalizacionZorro
     ret
