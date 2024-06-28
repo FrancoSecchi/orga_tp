@@ -141,7 +141,7 @@ jugar:
 
 ingresar_jugada: 
  
- 
+
 
     _gets buffer_input
     mov rdi, buffer_input
@@ -173,3 +173,4 @@ finalizar_juego:
 
 
 
+;dsasdaswdasdas
