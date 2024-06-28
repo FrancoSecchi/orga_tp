@@ -62,7 +62,7 @@ validar_ingreso_personalizacion:
 
     mov     al, [personalizacionOrientacion]
     cmp     alm [caracterAValidar]
-    je      validarOrientacion
+    je      eleccion_orientacion
 
 validarOrientacion:
     mov     [caracter_ingresado], byte[rdi] ; en rdi esta el valor del input

@@ -67,11 +67,11 @@ section .bss
 
 personalizaTablero
     _printf mensajePersonalizar
-    _gets, input ; chequar si necesita tabla personalizada
+    _gets  input ; chequar si necesita tabla personalizada
 
     mov     rdi, [input]
     sub     rep, 8
-    call    personalización
+    call    validar_ingreso_personalizacion
     add     rep, 8
 
     ;si es 0, se modifica la orientacion
@@ -113,7 +113,7 @@ orientacionInvalido
     ret
 
 personalizaOcas
-    _printf, mensajeIngresarSimboloOcas
+    _printf  mensajeIngresarSimboloOcas
     _gets simboloOcas ; no puede ser igual que el simbolo de zorro
     mov     al, [input]
     cmp     al, [simboloZorro]
