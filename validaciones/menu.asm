@@ -1,9 +1,14 @@
 global validar_eleccion_menu
-global validarOrientacion
+global validar_ingreso_personalizacion
 
 section .data
     opcion_cargar                       db "1",0
     opcion_nueva_partida                db "0",0
+
+    personalizacionOrientacion          db "0",0
+    personalizacionOcas                 db "1",0
+    personalizacionZorro                db "2",0
+    personalizacionSalir                db "3",0
 
     orientacionNorte                    db "N",0
     orientacionSur                      db "S",0
@@ -40,6 +45,28 @@ eleccion_nueva_partida:
     mov     rax, 0
     ret
 
+validar_ingreso_personalizacion:
+    mov     [caracterAValidar], byte [rdi]
+
+    mov     al, [personalizacionSalir]
+    cmp     al, [caracterAValidar]
+    je      eleccion_no_modificacion
+
+    mov     al, [personalizacionOcas]
+    cmp     al, [caracterAValidar]
+    je      eleccion_ocas
+
+    mov     al, [personalizacionZorro]
+    cmp     al, [caracterAValidar]
+    je      eleccion_zorro
+
+    mov     al, [personalizacionOrientacion]
+    cmp     alm [caracterAValidar]
+    je      validarOrientacion
+
+
+
+
 validarOrientacion:
     mov     al, [rdi] ; en rdi esta el valor del input
     mov     [caracter_ingresado], al
@@ -64,10 +91,20 @@ ingresadoInvalido:
     mov     rax, -1
     ret
 
+eleccion_no_modificacion:
+    mov     rax, 3
+    ret
+
 eleccion_orientacion:
     mov     rax, 0
     ret
+eleccion_ocas:
+    mov     rax, 1
+    ret
 
+eleccion_zorro:
+    mov     rax, 2
+    ret
 
 
 
