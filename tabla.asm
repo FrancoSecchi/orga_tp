@@ -63,7 +63,7 @@ section .bss
     simboloOcas             resb 1 ; es un char ascii
     simboloZorro            resb 1 ; es un char ascii
 
-
+section .text
 
 personalizaTablero:
     _printf mensajePersonalizar
