@@ -48,7 +48,7 @@ personalizaTabla
 
     ;si es 3, no modifica nada
     cmp     rax, 3
-    je      
+    je      mostrar_tabla
     
 
 personalizaOrientacion
@@ -79,6 +79,10 @@ personalizaOcas
     sub     rsp, 8
     call    validarOcas
 
+    mov     
+
 personalizaZorro
     _printf, mensajeIngresarSimboloZorro
     _gets, simboloZorro
+
+mostrar_tabla:
