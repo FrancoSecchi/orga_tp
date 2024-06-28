@@ -8,7 +8,7 @@ extern validarOrientacion
 extern validar_ingreso_personalizacion
 
 section .data
-    mensajePersonalizar  db " ** PERSONALIZACIÓN **",10,10," Este es el menú de personalización de partida. Si se quiere jugar con las configuraciones por defecto, ingrese 3 sin modificar nada.",10, " 0 - Personalizar la tabla (default: N)", 10, " 1 - Personalizar el simbolo del zorro (default: X)", 10, "2 - Personalizar el simbolo de ocas (default: O)", 10, 0
+    mensajePersonalizar  db " ** PERSONALIZACIÓN **",10,10," Este es el menú de personalización de partida. Si se quiere jugar con las configuraciones por defecto,",10, "ingrese 3 sin modificar nada.",10, " 0 - Personalizar la tabla (default: N)", 10, " 1 - Personalizar el simbolo del zorro (default: X)", 10, " 2 - Personalizar el simbolo de ocas (default: O)", 10, 0
     orientacionDefault      db "N"
     simboloOcasDefault      db "O"
     simboloZorroDefault     db "X"
