@@ -5,10 +5,9 @@ global personalizaTabla
 extern validarOrientacion
 
 section .data
-    mensajePersonalizar  db " ** PERSONALIZACIÓN **",10,10,"Este es el menú de personalización de partida. Si se quiere jugar con las configuraciones por defecto, ingrese s sin modificar nada.",10,0
+    mensajePersonalizar  db " ** PERSONALIZACIÓN **",10,10," Este es el menú de personalización de partida. Si se quiere jugar con las configuraciones por defecto, ingrese s sin modificar nada.",10, " 0 - Personalizar la tabla (default: N)", 10, " 1 - Personalizar el simbolo del zorro (default: X)", 10, "2 - Personalizar el simbolo de ocas (default: O)", 10, 0
     orientacionDefault      db "N"
     simboloOcasDefault      db "O"
-    simboloZorroDefault     db "X"
     simboloZorroDefault     db "X"
 
     orientacionNorte        db "N"
@@ -35,14 +34,27 @@ personalizaOrientacion
     _gets, input ; guarda la orientacion en input
     mov     rdi, [input]
     sub     rsp, 8
-    call    validarOrientacion
+    call    validarOrientacion ; verifica si el input es valido
     add     rep, 8
 
+    cmp     rax, 0 ; si es menor que 0, el input es invalido
+    jl      orientacionInvalido
+
+    ; si es valido, guardo en orientacion
+    mov     al, [input]
+    mov     [orientacion], al
+    jmp     personalizaOcas
+
 orientacionInvalido
+    _printf, mensajeCaracterInvalido
+    jmp     personalizaOrientacion
 
 personalizaOcas
     _printf, mensajeIngresarSimboloOcas
-    _gets, simboloOcas
+    _gets, simboloOcas ; no puede ser igual que el simbolo de zorro
+    mov     rdi, [input]
+    sub     rsp, 8
+    call    validarOcas
 
 personalizaZorro
     _printf, mensajeIngresarSimboloZorro
