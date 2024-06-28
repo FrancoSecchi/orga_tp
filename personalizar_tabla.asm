@@ -3,10 +3,12 @@
 global personalizaTabla
 
 section .data
+    mensajePersonalizar  db " ** PERSONALIZACIÓN **",10,10,"Este es el menú de personalización de partida. Si se quiere jugar con las configuraciones por defecto, ingrese s sin modificar nada.",10,0
     orientacionDefault      db "N"
     simboloOcasDefault      db "O"
     simboloZorroDefault     db "X"
     simboloZorroDefault     db "X"
+
     orientacionNorte        db "N"
     orientacionSur          db "S"
     orientacionEste         db "E"
@@ -22,12 +24,18 @@ section .bss
     simboloZorro            resb 1 ; es un char ascii
 
 personalizaTabla
+    _printf, mensajePersonalizar
+
+personalizaOrientacion
     _printf, mensajeIngresarOrientacion
     _gets, orientacion ; guarda la orientacion en orientacion
 
+orientacionInvalido
+
+personalizaOcas
     _printf, mensajeIngresarSimboloOcas
     _gets, simboloOcas
 
+personalizaZorro
     _printf, mensajeIngresarSimboloZorro
     _gets, simboloZorro
-
