@@ -194,12 +194,10 @@ copiarTablero:
     ret
 
 mostrarTablero:
-    ; Imprimir el índice del tablero
     _printf indice
 
-    ; Mostrar el tablero usando un bucle
-    mov rsi, tablero  ; RSI apunta al inicio del tablero
-    mov rcx, 49       ; Número de bytes en el tablero
+    mov rsi, tablero  ; rSI apunta al inicio del tablero
+    mov rcx, 49       ; número de bytes en el tablero
 
     mostrar_loop:
         mov al, [rsi]  
