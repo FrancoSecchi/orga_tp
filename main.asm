@@ -63,7 +63,7 @@ section .data
                         db -1,-1, 1, 0, 0,-1,-1 
                         db -1,-1, 1, 1, 1,-1,-1
 
-    movimientos_totales db 0 ;para definir los turnos si es un numero par es el turno del zorro, si es impar de las ocas 
+
 
 
 
