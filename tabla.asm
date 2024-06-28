@@ -110,7 +110,7 @@ personalizacionOrientacion:
 
 orientacionInvalido:
     _printf mensajeCaracterInvalido
-    jmp     personalizaOrientacion
+    jmp     personalizacionOrientacion
     ret
 
 personalizacionOcas:
@@ -128,7 +128,7 @@ personalizacionOcas:
 
 simboloOcasInvalido:
     _printf mensajeCaracterInvalido
-    jmp personalizaOcas
+    jmp personalizacionOcas
     ret
 
 personalizacionZorro:
