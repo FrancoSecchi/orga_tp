@@ -165,7 +165,7 @@ CrearTablero:
     je      elegir_tableroSur
 
     ; si es vacio o es Norte
-    je      elegir_tableroNorte
+    jmp      elegir_tableroNorte
 
 
 elegir_tableroEste:
@@ -195,14 +195,43 @@ copiarTablero:
 mostrarTablero:
     _printf indice
 
-    mov rsi, tablero  ; rSI apunta al inicio del tablero
-    mov rcx, 49       ; número de bytes en el tablero
+    mov     rsi, tablero  ; rSI apunta al inicio del tablero
+    mov     rcx, 49       ; número de bytes en el tablero
 
     mostrar_loop:
-        mov al, [rsi]  
-        mov [caracter_actual], al
-        _printf caracter_actual  
-        inc rsi        
-        loop mostrar_loop 
+        mov     al, [rsi]  
+        jmp     determinarSimbolo
+        imprimir:
+            mov     [caracter_actual], al
+            _printf caracter_actual  
+        inc     rsi        
+        loop    mostrar_loop 
 
+    ret
+
+determinarSimbolo:
+    cmp     al, -1
+    je      imprimirSimboloInvalido
+
+    cmp     al, 2
+    je      imprimirSimboloZorro
+
+    cmp     al, 1
+    je      imprimirSimboloOcas
+
+    jmp     imprimirSimboloInvalido
+
+imprimirSimboloInvalido:
+    mov al, " "
+    jmp imprimir
+    ret
+
+imprimirSimboloZorro:
+    mov al, [simboloZorro]
+    jmp imprimir
+    ret
+
+imprimirSimboloOcas:
+    mov al, [simboloOcas]
+    imprimir
     ret
