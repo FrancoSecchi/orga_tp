@@ -12,14 +12,14 @@ extern mostrarTablero
 section .data
     mensaje_menu             db "Menu principal",10,10,"Vamos a jugar al Zorro y las Ocas!",10,"Seleccione una opción para jugar (ingresar número de opción)",10,"  0 - Nueva partida",10,"  1 - Cargar partida",10,0 
     mensaje_opcion_incorrecta     db "La opcion elegida no es valida, por favor ingrese una opcion valida.",10,0 
-    mensaje_controles_generales db "CONTROLES: Los controles ingresados deben estar en MAYÚSCULAS",10," Ingresar uno de los caracteres indicados.",10,"(G) Guardar Partida - (S) Salir del Juego - (1 - 8) Movimiento",10,0
+    mensaje_controles_generales db "CONTROLES: Los controles ingresados deben estar en MAYÚSCULAS",10," Ingresar uno de los caracteres indicados.",10,"(G) Guardar Partida - (S) Salir del Juego - (1 - 8) Movimiento",10,10,0
 
     mensaje_entrada db "Ingrese una opcion:  ",0
     mensaje_inicio_partida db "Empezamos a jugar!!",10 ,0
     cmd_clear db "clear",0
 
     mensaje1 db "Cargar partida",10,0
-    mensaje2 db "Nueva partida",10,0
+    mensaje2 db "Nueva partida",0
     mensaje_final db "Fin del juego",10,0
 
     mensaje_turno_zorro     db "Es el turno del zorro",10,0
@@ -133,13 +133,18 @@ cargar_partida:
 
 nueva_partida: 
     _printf mensaje2
-    jmp finalizar_juego
+    ; jmp finalizar_juego
 
 jugar: 
     ;Acá se imprime el tablero
     _printf mensaje_controles_generales
+    sub rsp, 8
     call personalizaTablero
+    add rsp, 8
+
+    sub rsp, 8
     call mostrarTablero
+    add rsp,8
 
 ingresar_jugada: 
  
