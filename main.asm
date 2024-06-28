@@ -7,13 +7,11 @@ extern cargar_partida_archivo
 extern guardar_partida_archivo
 extern validar_eleccion_menu
 extern validar_eleccion_jugada
-extern personalizaTablero
-extern mostrarTablero
 
 section .data
     mensaje_menu             db "Menu principal",10,10,"Vamos a jugar al Zorro y las Ocas!",10,"Seleccione una opción para jugar (ingresar número de opción)",10,"  0 - Nueva partida",10,"  1 - Cargar partida",10,0 
     mensaje_opcion_incorrecta     db "La opcion elegida no es valida, por favor ingrese una opcion valida.",10,0 
-    mensaje_controles_generales db "CONTROLES: Los controles ingresados deben estar en MAYÚSCULAS",10," Ingresar uno de los caracteres indicados.",10,"(G) Guardar Partida - (S) Salir del Juego - (1 - 9) Movimiento",10,0
+    mensaje_controles_generales db "CONTROLES: Los controles ingresados deben estar en MAYÚSCULAS",10," Ingresar uno de los caracteres indicados.",10,"(G) Guardar Partida - (S) Salir del Juego - (1 - 8) Movimiento",10,0
 
     mensaje_entrada db "Ingrese una opcion:  ",0
     mensaje_inicio_partida db "Empezamos a jugar!!",10 ,0
@@ -23,18 +21,41 @@ section .data
     mensaje2 db "Nueva partida",10,0
     mensaje_final db "Fin del juego",10,0
 
-    ;  -1 : lugar invalido, 1: ocas, 2: zorro, 0: lugar vacio 
+    mensaje_turno_zorro     db "Es el turno del zorro",10,0
+    mensaje_turno_oca       db "Es el turno de las ocas",10,0
+    turno_de_zorro_oca    db 0 ;si es el turno del zorro le sumo 1, si es el turno de la oca --> le resto 1
+
+
+
+
+
+
+
+section .bss
+    ; Define una etiqueta que apunta a todo el bloque de memoria que almacena el estado del juego.
+    ; Este bloque consiste en múltiples variables, cada una representando una parte del estado del juego.
+    ; El tamaño total de este bloque es de 95 bytes.
+    ; 
+    ; "times 0 resb 95" no reserva espacio adicional, simplemente crea una etiqueta
+    ; que apunta a la ubicación donde se encuentran las siguientes variables.
+    registroDatosPartida    times 0 resb 95 ; Es una etiqueta 
+
+    ; Variables de partida - en orden específico.
+    ; Todos los simbolos son un carácter ASCII
+    tablero                 resb 49         
+
+    ;  -1 : lugar invalido, 1: ocas, 3: zorro, 0: lugar vacio 
     tableroNorte        db -1,-1, 1, 1, 1,-1,-1
                         db -1,-1, 1, 1, 1,-1,-1
                         db  1, 1, 1, 1, 1, 1, 1
                         db  1, 0, 0, 0, 0, 0, 1
-                        db  1, 0, 0, 2, 0, 0, 1
+                        db  1, 0, 0, 3, 0, 0, 1
                         db -1,-1, 0, 0, 0,-1,-1
                         db -1,-1, 0, 0, 0,-1,-1
     
     tableroSur          db -1,-1, 0, 0, 0,-1,-1
                         db -1,-1, 0, 0, 0,-1,-1
-                        db  1, 0, 0, 2, 0, 0, 1
+                        db  1, 0, 0, 3, 0, 0, 1
                         db  1, 0, 0, 0, 0, 0, 1
                         db  1, 1, 1, 1, 1, 1, 1
                         db -1,-1, 1, 1, 1,-1,-1
@@ -55,20 +76,20 @@ section .data
                         db  1, 1, 1, 0, 0, 0, 0
                         db -1,-1, 1, 0, 0,-1,-1 
                         db -1,-1, 1, 1, 1,-1,-1
-section .bss
-    ; Define una etiqueta que apunta a todo el bloque de memoria que almacena el estado del juego.
-    ; Este bloque consiste en múltiples variables, cada una representando una parte del estado del juego.
-    ; El tamaño total de este bloque es de 95 bytes.
-    ; 
-    ; "times 0 resb 95" no reserva espacio adicional, simplemente crea una etiqueta
-    ; que apunta a la ubicación donde se encuentran las siguientes variables.
-    registroDatosPartida    times 0 resb 95 ; Es una etiqueta 
 
-    ; Variables de partida - en orden específico.
+    mov_ad db 
 
-    ; Todos los simbolos son un carácter ASCII
-    tablero                 resb 49         
+    movimientos_totales db 0 ;para definir los turnos si es un numero par es el turno del zorro, si es impar de las ocas 
 
+
+    cant_mov_izq          resw 500
+    cant_mov_der          resw 500
+    cant_mov_abajo        resw 500
+    cant_mov_arriba       resw 500
+    cant_mov_arriba_der   resw 500
+    cant_mov_arriba_izq   resw 500
+    cant_mov_abajo_der    resw 500
+    cant_mov_abajo_izq    resw 500
 
 section .text
 
@@ -117,10 +138,10 @@ nueva_partida:
 jugar: 
     ;Acá se imprime el tablero
     _printf mensaje_controles_generales
-    call    personalizaTablero
-    call    mostrarTablero
 
 ingresar_jugada: 
+
+
     _gets buffer_input
     mov rdi, buffer_input
     sub rsp, 8
@@ -130,6 +151,15 @@ ingresar_jugada:
     cmp rax, 2 ; Si elige finalizar la partida, salta al final del juego
     je finalizar_juego
 
+    cmp mov_adelante, [rax]
+    inc mov_ad
+
+    cmp byte[turno_de_zorro_oca],0
+    je turno_zorro ;movimiento del zorro
+    cmp byte[turno_de_zorro_oca],1
+    je turno_oca   ;movimiento de la oca
+
+
 
 finalizar_juego: 
     _printf mensaje_final
@@ -137,4 +167,8 @@ finalizar_juego:
     ;Acá va a estar el mensaje que muestra todas las estadisticas
     ;.....
     ret
+
+
+
+
 
