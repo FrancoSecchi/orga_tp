@@ -46,26 +46,27 @@ eleccion_nueva_partida:
     ret
 
 validar_ingreso_personalizacion:
-    mov     [caracterAValidar], byte [rdi]
+    mov     [caracter_ingresado], byte [rdi]
 
     mov     al, [personalizacionSalir]
-    cmp     al, [caracterAValidar]
+    cmp     al, [caracter_ingresado]
     je      eleccion_no_modificacion
 
     mov     al, [personalizacionOcas]
-    cmp     al, [caracterAValidar]
+    cmp     al, [caracter_ingresado]
     je      eleccion_ocas
 
     mov     al, [personalizacionZorro]
-    cmp     al, [caracterAValidar]
+    cmp     al, [caracter_ingresado]
     je      eleccion_zorro
 
     mov     al, [personalizacionOrientacion]
-    cmp     alm [caracterAValidar]
+    cmp     al, [caracter_ingresado]
     je      eleccion_orientacion
 
 validarOrientacion:
-    mov     [caracter_ingresado], byte[rdi] ; en rdi esta el valor del input
+    mov     al, rdi
+    mov     [caracter_ingresado], al ; en rdi esta el valor del input
 
     mov     al, [orientacionNorte]
     cmp     al, [caracter_ingresado] ;Comparo si ingresa la orientacion norte
