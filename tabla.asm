@@ -203,3 +203,4 @@ mostrarTablero:
     _printf r8
 
 mostrarLoop:
+    ret
