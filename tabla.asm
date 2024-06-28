@@ -56,8 +56,8 @@ section .data
                         db  1, 1, 1, 0, 0, 0, 0
                         db -1,-1, 1, 0, 0,-1,-1 
                         db -1,-1, 1, 1, 1,-1,-1
-
-    indice              db "[ ] 1  2  3  4  5  6  7 [ ]",10,0
+    
+    indice              db "[   1  2  3  4  5  6  7   ]",10,0
 
 section .bss
     input                   resb 1 ; es un char ascii
@@ -194,13 +194,17 @@ copiarTablero:
     ret
 
 mostrarTablero:
+    ; Imprimir el índice del tablero
     _printf indice
 
-    mov     byte[posFila], 0
-    mov     byte[posCol], 0
+    ; Mostrar el tablero usando un bucle
+    mov rsi, tablero  ; RSI apunta al inicio del tablero
+    mov rcx, 49       ; Número de bytes en el tablero
 
-    mov     r8, [tablero]
-    _printf r8
+    mostrar_loop:
+        mov al, [rsi]  
+        _printf al     
+        inc rsi        
+        loop mostrar_loop 
 
-mostrarLoop:
     ret
