@@ -168,8 +168,3 @@ finalizar_juego:
     ;.....
     ret
 
-
-
-
-
-;Hola a todos
