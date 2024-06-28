@@ -25,21 +25,6 @@ section .data
     mensaje_turno_oca       db "Es el turno de las ocas",10,0
     turno_de_zorro_oca    db 0 ;si es el turno del zorro le sumo 1, si es el turno de la oca --> le resto 1
 
-
-
-
-
-
-
-section .bss
-    ; Define una etiqueta que apunta a todo el bloque de memoria que almacena el estado del juego.
-    ; Este bloque consiste en múltiples variables, cada una representando una parte del estado del juego.
-    ; El tamaño total de este bloque es de 95 bytes.
-    ; 
-    ; "times 0 resb 95" no reserva espacio adicional, simplemente crea una etiqueta
-    ; que apunta a la ubicación donde se encuentran las siguientes variables.
-    registroDatosPartida    times 0 resb 95 ; Es una etiqueta 
-
     ; Variables de partida - en orden específico.
     ; Todos los simbolos son un carácter ASCII
     tablero                 resb 49         
@@ -77,9 +62,22 @@ section .bss
                         db -1,-1, 1, 0, 0,-1,-1 
                         db -1,-1, 1, 1, 1,-1,-1
 
-    mov_ad db 
-
     movimientos_totales db 0 ;para definir los turnos si es un numero par es el turno del zorro, si es impar de las ocas 
+
+
+
+
+
+section .bss
+    ; Define una etiqueta que apunta a todo el bloque de memoria que almacena el estado del juego.
+    ; Este bloque consiste en múltiples variables, cada una representando una parte del estado del juego.
+    ; El tamaño total de este bloque es de 95 bytes.
+    ; 
+    ; "times 0 resb 95" no reserva espacio adicional, simplemente crea una etiqueta
+    ; que apunta a la ubicación donde se encuentran las siguientes variables.
+    registroDatosPartida    times 0 resb 95 ; Es una etiqueta 
+
+    
 
 
     cant_mov_izq          resw 500
