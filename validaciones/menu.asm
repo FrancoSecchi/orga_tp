@@ -46,7 +46,8 @@ eleccion_nueva_partida:
     ret
 
 validar_ingreso_personalizacion:
-    mov     [caracter_ingresado], byte [rdi]
+    mov     al, [rdi]
+    mov     [caracter_ingresado], al ; en rdi esta el valor del input
 
     mov     al, [personalizacionSalir]
     cmp     al, [caracter_ingresado]
@@ -65,7 +66,7 @@ validar_ingreso_personalizacion:
     je      eleccion_orientacion
 
 validarOrientacion:
-    mov     al, rdi
+    mov     al, [rdi]
     mov     [caracter_ingresado], al ; en rdi esta el valor del input
 
     mov     al, [orientacionNorte]
