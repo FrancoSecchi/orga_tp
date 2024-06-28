@@ -140,7 +140,8 @@ jugar:
     _printf mensaje_controles_generales
 
 ingresar_jugada: 
-
+ 
+ 
 
     _gets buffer_input
     mov rdi, buffer_input
