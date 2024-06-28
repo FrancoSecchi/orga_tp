@@ -65,8 +65,7 @@ section .bss
     simboloOcas             resb 1 ; es un char ascii
     simboloZorro            resb 1 ; es un char ascii
     tablero                 resb 49      
-    posFila                 resb 1
-    posCol                  resb 1
+    caracter_actual         resb 1
 
 
 section .text
@@ -201,7 +200,8 @@ mostrarTablero:
 
     mostrar_loop:
         mov al, [rsi]  
-        _printf al     
+        mov [caracter_actual], al
+        _printf caracter_actual  
         inc rsi        
         loop mostrar_loop 
 
