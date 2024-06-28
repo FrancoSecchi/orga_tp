@@ -63,6 +63,12 @@ section .data
                         db -1,-1, 1, 0, 0,-1,-1 
                         db -1,-1, 1, 1, 1,-1,-1
 
+    posx_zorro      db 0
+    posy_zorro      db 0
+    
+	LONG_ELEM	equ	1
+	CANT_FIL	equ	7
+	CANT_COL	equ	7
 
 
 
@@ -168,10 +174,26 @@ ingresar_jugada:
     je turno_oca   ;movimiento de la oca
 
 turno_zorro:
+    
+    sub rsp, 8
+    call buscar_zorro
+    add  rsp, 8
+    ret
 
-    ; sub rsp, 8
-    ; call buscar_zorro
-    ; add  rsp, 8
+
+buscar_zorro:
+    mov rcx,49
+    mov rbx,tablero
+    mov rdi,0
+l:
+    mov ax,[rbx+rdi]
+    ret;sacar
+    ;cmp ax,[]   ;aca va el simbolo de el zorro
+    je  guadar_posicion_zorro
+    inc rdi
+    loop l
+
+guadar_posicion_zorro:
     ret
 
 turno_oca:
