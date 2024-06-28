@@ -19,11 +19,49 @@ section .data
     mensajeIngresarSimboloOcas  db "Ingrese un símbolo para representar las OCAS. No puede ser un espacio ni tampoco el símbolo del zorro.",10,0
     mensajeIngresarSimboloZorro db "Ingrese un símbolo para representar el ZORRO. No puede ser un espacio ni tampoco el símbolo de las ocas.",10,0
 
+    ; Todos los simbolos son un carácter ASCII
+    tablero                 resb 49         
+
+    ;  -1 : lugar invalido, 1: ocas, 2: zorro, 0: lugar vacio 
+    tableroNorte        db -1,-1, 1, 1, 1,-1,-1
+                        db -1,-1, 1, 1, 1,-1,-1
+                        db  1, 1, 1, 1, 1, 1, 1
+                        db  1, 0, 0, 0, 0, 0, 1
+                        db  1, 0, 0, 2, 0, 0, 1
+                        db -1,-1, 0, 0, 0,-1,-1
+                        db -1,-1, 0, 0, 0,-1,-1
+    
+    tableroSur          db -1,-1, 0, 0, 0,-1,-1
+                        db -1,-1, 0, 0, 0,-1,-1
+                        db  1, 0, 0, 2, 0, 0, 1
+                        db  1, 0, 0, 0, 0, 0, 1
+                        db  1, 1, 1, 1, 1, 1, 1
+                        db -1,-1, 1, 1, 1,-1,-1
+                        db -1,-1, 1, 1, 1,-1,-1
+    
+    tableroEste         db -1,-1, 1, 1, 1,-1,-1
+                        db -1,-1, 0, 0, 1,-1,-1
+                        db  0, 0, 0, 0, 1, 1, 1
+                        db  0, 0, 2, 0, 1, 1, 1
+                        db  0, 0, 0, 0, 1, 1, 1
+                        db -1,-1, 0, 0, 1,-1,-1
+                        db -1,-1, 1, 1, 1,-1,-1
+
+    tableroOeste        db -1,-1, 1, 1, 1,-1,-1
+                        db -1,-1, 1, 0, 0,-1,-1
+                        db  1, 1, 1, 0, 0, 0, 0
+                        db  1, 1, 1, 0, 2, 0, 0
+                        db  1, 1, 1, 0, 0, 0, 0
+                        db -1,-1, 1, 0, 0,-1,-1 
+                        db -1,-1, 1, 1, 1,-1,-1
+
 section .bss
     input                   resb 1 ; es un char ascii
     orientacion             resb 1 ; es un char ascii
     simboloOcas             resb 1 ; es un char ascii
     simboloZorro            resb 1 ; es un char ascii
+
+
 
 personalizaTabla
     _printf, mensajePersonalizar
@@ -62,7 +100,7 @@ personalizaOrientacion
     cmp     rax, 0 ; si es menor que 0, el input es invalido
     jl      orientacionInvalido
 
-    ; si es valido, guardo en orientacion
+    ; si es valido, guarda en orientacion
     mov     al, [input]
     mov     [orientacion], al
     jmp     personalizaTabla
@@ -75,14 +113,31 @@ orientacionInvalido
 personalizaOcas
     _printf, mensajeIngresarSimboloOcas
     _gets, simboloOcas ; no puede ser igual que el simbolo de zorro
-    mov     rdi, [input]
-    sub     rsp, 8
-    call    validarOcas
+    mov     al, [input]
+    cmp     al, simboloZorro
+    je      simboloOcasInvalido
 
-    mov     
+    ; si es valido, guarda en ocas
+    mov     al, [input]
+    mov     [ocas], al
+    jmp     personalizaTabla
+
+
+simboloOcasInvalido
+    _printf, mensajeCaracterInvalido
+    jmp personalizaOcas
+    ret
 
 personalizaZorro
     _printf, mensajeIngresarSimboloZorro
     _gets, simboloZorro
 
+simboloZorroInvalido
+    _printf, mensajeCaracterInvalido
+    jmp personalizacionZorro
+    ret
+
 mostrar_tabla:
+    mov     al, [orientacion]
+    cmp     al, [orientacionEste]
+

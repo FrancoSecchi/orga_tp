@@ -31,41 +31,6 @@ section .bss
     registroDatosPartida    times 0 resb 95 ; Es una etiqueta 
 
     ; Variables de partida - en orden específico.
-    ; Todos los simbolos son un carácter ASCII
-    tablero                 resb 49         
-
-    ;  -1 : lugar invalido, 1: ocas, 2: zorro, 0: lugar vacio 
-    tableroNorte        db -1,-1, 1, 1, 1,-1,-1
-                        db -1,-1, 1, 1, 1,-1,-1
-                        db  1, 1, 1, 1, 1, 1, 1
-                        db  1, 0, 0, 0, 0, 0, 1
-                        db  1, 0, 0, 2, 0, 0, 1
-                        db -1,-1, 0, 0, 0,-1,-1
-                        db -1,-1, 0, 0, 0,-1,-1
-    
-    tableroSur          db -1,-1, 0, 0, 0,-1,-1
-                        db -1,-1, 0, 0, 0,-1,-1
-                        db  1, 0, 0, 2, 0, 0, 1
-                        db  1, 0, 0, 0, 0, 0, 1
-                        db  1, 1, 1, 1, 1, 1, 1
-                        db -1,-1, 1, 1, 1,-1,-1
-                        db -1,-1, 1, 1, 1,-1,-1
-    
-    tableroEste         db -1,-1, 1, 1, 1,-1,-1
-                        db -1,-1, 0, 0, 1,-1,-1
-                        db  0, 0, 0, 0, 1, 1, 1
-                        db  0, 0, 2, 0, 1, 1, 1
-                        db  0, 0, 0, 0, 1, 1, 1
-                        db -1,-1, 0, 0, 1,-1,-1
-                        db -1,-1, 1, 1, 1,-1,-1
-
-    tableroOeste        db -1,-1, 1, 1, 1,-1,-1
-                        db -1,-1, 1, 0, 0,-1,-1
-                        db  1, 1, 1, 0, 0, 0, 0
-                        db  1, 1, 1, 0, 2, 0, 0
-                        db  1, 1, 1, 0, 0, 0, 0
-                        db -1,-1, 1, 0, 0,-1,-1 
-                        db -1,-1, 1, 1, 1,-1,-1
 
 
 
