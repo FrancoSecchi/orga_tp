@@ -92,7 +92,7 @@ personalizaTablero:
     je      CrearTablero
     
 
-personalizaOrientacion:
+personalizacionOrientacion:
     _printf mensajeIngresarOrientacion
     _gets input ; guarda la orientacion en input
     mov     rdi, [input]
@@ -113,7 +113,7 @@ orientacionInvalido:
     jmp     personalizaOrientacion
     ret
 
-personalizaOcas:
+personalizacionOcas:
     _printf  mensajeIngresarSimboloOcas
     _gets simboloOcas ; no puede ser igual que el simbolo de zorro
     mov     al, [input]
@@ -131,7 +131,7 @@ simboloOcasInvalido:
     jmp personalizaOcas
     ret
 
-personalizaZorro:
+personalizacionZorro:
     _printf mensajeIngresarSimboloZorro
     _gets simboloZorro
     mov     al, [input]
