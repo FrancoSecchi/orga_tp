@@ -23,20 +23,6 @@ section .data
     mensaje2 db "Nueva partida",10,0
     mensaje_final db "Fin del juego",10,0
 
-section .bss
-    ; Define una etiqueta que apunta a todo el bloque de memoria que almacena el estado del juego.
-    ; Este bloque consiste en múltiples variables, cada una representando una parte del estado del juego.
-    ; El tamaño total de este bloque es de 95 bytes.
-    ; 
-    ; "times 0 resb 95" no reserva espacio adicional, simplemente crea una etiqueta
-    ; que apunta a la ubicación donde se encuentran las siguientes variables.
-    registroDatosPartida    times 0 resb 95 ; Es una etiqueta 
-
-    ; Variables de partida - en orden específico.
-
-    ; Todos los simbolos son un carácter ASCII
-    tablero                 resb 49         
-
     ;  -1 : lugar invalido, 1: ocas, 2: zorro, 0: lugar vacio 
     tableroNorte        db -1,-1, 1, 1, 1,-1,-1
                         db -1,-1, 1, 1, 1,-1,-1
@@ -69,6 +55,20 @@ section .bss
                         db  1, 1, 1, 0, 0, 0, 0
                         db -1,-1, 1, 0, 0,-1,-1 
                         db -1,-1, 1, 1, 1,-1,-1
+section .bss
+    ; Define una etiqueta que apunta a todo el bloque de memoria que almacena el estado del juego.
+    ; Este bloque consiste en múltiples variables, cada una representando una parte del estado del juego.
+    ; El tamaño total de este bloque es de 95 bytes.
+    ; 
+    ; "times 0 resb 95" no reserva espacio adicional, simplemente crea una etiqueta
+    ; que apunta a la ubicación donde se encuentran las siguientes variables.
+    registroDatosPartida    times 0 resb 95 ; Es una etiqueta 
+
+    ; Variables de partida - en orden específico.
+
+    ; Todos los simbolos son un carácter ASCII
+    tablero                 resb 49         
+
 
 section .text
 
