@@ -193,21 +193,15 @@ copiarTablero:
     ret
 
 mostrarTablero:
-    _printf indice
+    _printf indice       ; Imprime el índice del tablero
 
     mov     rsi, tablero  ; rSI apunta al inicio del tablero
-    mov     rcx, 49       ; número de bytes en el tablero
+    mov     rcx, 49       ; Número de bytes en el tablero
 
-    mostrar_loop:
-        mov     al, [rsi]  
-        jmp     determinarSimbolo
-        imprimir:
-            mov     [caracter_actual], al
-            _printf caracter_actual  
-        inc     rsi        
-        loop    mostrar_loop 
-
-    ret
+mostrar_loop:
+    mov     al, [rsi]
+    call    determinarSimbolo
+    jmp     imprimir
 
 determinarSimbolo:
     cmp     al, -1
@@ -222,16 +216,21 @@ determinarSimbolo:
     jmp     imprimirSimboloInvalido
 
 imprimirSimboloInvalido:
-    mov al, " "
-    jmp imprimir
+    mov     al, " "  ; Si el valor es -1, imprime un espacio
     ret
 
 imprimirSimboloZorro:
-    mov al, [simboloZorro]
-    jmp imprimir
+    mov     al, [simboloZorro]
     ret
 
 imprimirSimboloOcas:
-    mov al, [simboloOcas]
-    imprimir
+    mov     al, [simboloOcas]
+    ret
+
+imprimir:
+    mov     [caracter_actual], al  
+    _printf  caracter_actual        
+    inc     rsi                     
+    loop    mostrar_loop            
+
     ret
