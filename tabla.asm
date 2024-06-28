@@ -196,8 +196,8 @@ copiarTablero:
 mostrarTablero:
     _printf indice
 
-    mov     qword[posFila], 0
-    mov     qword[posCol], 0
+    mov     byte[posFila], 0
+    mov     byte[posCol], 0
 
     mov     r8, [tablero]
     _printf r8
