@@ -199,6 +199,7 @@ mostrarTablero:
     mov     [posFila], 0
     mov     [posCol], 0
 
-    _printf posFila
+    mov     r8, [tablero]
+    _printf r8
 
 mostrarLoop:
