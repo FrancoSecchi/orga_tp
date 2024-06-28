@@ -19,6 +19,7 @@ section .data
     mensajeIngresarSimboloZorro db "Ingrese un símbolo para representar el ZORRO. No puede ser un espacio ni tampoco el símbolo de las ocas.",10,0
 
 section .bss
+    imput                   resb 1 ; es un char ascii
     orientacion             resb 1 ; es un char ascii
     simboloOcas             resb 1 ; es un char ascii
     simboloZorro            resb 1 ; es un char ascii
@@ -28,7 +29,8 @@ personalizaTabla
 
 personalizaOrientacion
     _printf, mensajeIngresarOrientacion
-    _gets, orientacion ; guarda la orientacion en orientacion
+    _gets, orientacion ; guarda la orientacion en imput
+    
 
 orientacionInvalido
 
