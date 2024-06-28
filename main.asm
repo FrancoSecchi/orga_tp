@@ -1,14 +1,13 @@
 global main
 
-%include "utils_macros.asm"
-
-
 extern cargar_partida_archivo
 extern guardar_partida_archivo
 extern validar_eleccion_menu
 extern validar_eleccion_jugada
 extern personalizaTablero
 extern mostrarTablero
+
+%include "utils_macros.asm"
 
 section .data
     mensaje_menu             db "Menu principal",10,10,"Vamos a jugar al Zorro y las Ocas!",10,"Seleccione una opción para jugar (ingresar número de opción)",10,"  0 - Nueva partida",10,"  1 - Cargar partida",10,0 
