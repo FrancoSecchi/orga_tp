@@ -70,7 +70,7 @@ personalizaTablero:
     _printf mensajePersonalizar
     _gets  input ; chequar si necesita tabla personalizada
 
-    mov     rdi, [input]
+    mov     rdi, input
     sub     rsp, 8
     call    validar_ingreso_personalizacion
     add     rsp, 8
@@ -95,7 +95,7 @@ personalizaTablero:
 personalizacionOrientacion:
     _printf mensajeIngresarOrientacion
     _gets input ; guarda la orientacion en input
-    mov     rdi, [input]
+    mov     rdi, input
     sub     rsp, 8
     call    validarOrientacion ; verifica si el input es valido
     add     rsp, 8
