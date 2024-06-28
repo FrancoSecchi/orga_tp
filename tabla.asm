@@ -57,12 +57,17 @@ section .data
                         db -1,-1, 1, 0, 0,-1,-1 
                         db -1,-1, 1, 1, 1,-1,-1
 
+    indice              db "[ ] 1  2  3  4  5  6  7 [ ]",10,0
+
 section .bss
     input                   resb 1 ; es un char ascii
     orientacion             resb 1 ; es un char ascii
     simboloOcas             resb 1 ; es un char ascii
     simboloZorro            resb 1 ; es un char ascii
     tablero                 resb 49      
+    posFila                 resb 1
+    posCol                  resb 1
+
 
 section .text
 
@@ -189,8 +194,13 @@ copiarTablero:
     ret
 
 mostrarTablero:
-    _printf tablero
-    _printf tableroEste
+    _printf indice
+
+    mov     [posFila], 0
+    mov     [posCol], 0
+
+    mov     r8, [tablero]
+    _printf r8
+
+mostrarLoop:
     ret
-
-
