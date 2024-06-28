@@ -69,3 +69,6 @@ imprimir_mesanje_error:
 
 retornar: 
     ret
+
+imprimirMesanjeError:
+    ret ;para probar
