@@ -1,8 +1,14 @@
 global validar_eleccion_menu
+global validarOrientacion
 
 section .data
-    opcion_cargar             db "1",0
-    opcion_nueva_partida              db "0",0
+    opcion_cargar                       db "1",0
+    opcion_nueva_partida                db "0",0
+
+    orientacionNorte                    db "N",0
+    orientacionSur                      db "S",0
+    orientacionEste                     db "E",0
+    orientacionOeste                    db "O",0
 
 section .bss
     caracter_ingresado                    resb 1
@@ -33,3 +39,6 @@ eleccion_cargar_partida:
 eleccion_nueva_partida:
     mov     rax, 0
     ret
+
+validarOrientacion:
+

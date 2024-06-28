@@ -2,6 +2,8 @@
 
 global personalizaTabla
 
+extern validarOrientacion
+
 section .data
     mensajePersonalizar  db " ** PERSONALIZACIÓN **",10,10,"Este es el menú de personalización de partida. Si se quiere jugar con las configuraciones por defecto, ingrese s sin modificar nada.",10,0
     orientacionDefault      db "N"
@@ -19,18 +21,22 @@ section .data
     mensajeIngresarSimboloZorro db "Ingrese un símbolo para representar el ZORRO. No puede ser un espacio ni tampoco el símbolo de las ocas.",10,0
 
 section .bss
-    imput                   resb 1 ; es un char ascii
+    input                   resb 1 ; es un char ascii
     orientacion             resb 1 ; es un char ascii
     simboloOcas             resb 1 ; es un char ascii
     simboloZorro            resb 1 ; es un char ascii
 
 personalizaTabla
     _printf, mensajePersonalizar
+    _gets, input ; chequar si necesita tabla personalizada
 
 personalizaOrientacion
     _printf, mensajeIngresarOrientacion
-    _gets, orientacion ; guarda la orientacion en imput
-    
+    _gets, input ; guarda la orientacion en input
+    mov     rdi, [input]
+    sub     rsp, 8
+    call    validarOrientacion
+    add     rep, 8
 
 orientacionInvalido
 
