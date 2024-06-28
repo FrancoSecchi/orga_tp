@@ -66,6 +66,7 @@ section .bss
     simboloZorro            resb 1 ; es un char ascii
     tablero                 resb 49      
     posFila                 resb 1
+    posCol                  resb 1
 
 
 section .text
@@ -195,9 +196,9 @@ copiarTablero:
 mostrarTablero:
     _printf indice
 
-    mov     [posFila]
-    _printf tablero
-    _printf tableroEste
-    ret
+    mov     [posFila], 0
+    mov     [posCol], 0
 
+    _printf posFila
 
+mostrarLoop:
