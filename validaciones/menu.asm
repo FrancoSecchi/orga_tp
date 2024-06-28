@@ -41,4 +41,31 @@ eleccion_nueva_partida:
     ret
 
 validarOrientacion:
+    mov     al, [rdi] ; en rdi esta el valor del input
+    mov     [caracter_ingresado], al
+
+    mov     al, [orientacionNorte]
+    cmp     al, [caracter_ingresado] ;Comparo si ingresa la orientacion norte
+    je      eleccion_orientacion
+
+    mov     al, [orientacionEste]
+    cmp     al, [caracter_ingresado] ;Comparo si ingresa la orientacion Este
+    je      eleccion_orientacion
+
+    mov     al, [orientacionSur]
+    cmp     al, [caracter_ingresado] ;Comparo si ingresa la orientacion sur
+    je      eleccion_orientacion
+
+    mov     al, [orientacionOeste]
+    cmp     al, [caracter_ingresado] ;Comparo si ingresa la orientacion oeste
+    je      eleccion_orientacion
+
+ingresadoInvalido:
+    mov     rax, -1
+    ret
+
+eleccion_orientacion:
+    mov     rax, 0
+    ret
+
 
