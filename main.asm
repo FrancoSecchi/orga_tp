@@ -29,10 +29,9 @@ section .data
     ; Variables de partida - en orden específico.
     ; Todos los simbolos son un carácter ASCII
         
-
-    
-    posx_zorro      db 0
-    posy_zorro      db 0
+    mensaje_turno_zorro db "Ingresar fil y col: "10,0
+    mensaje_turno_oca db "Ingresar fil y col: "10,0
+    pos_zorro      db 0
     
 	LONG_ELEM	equ	1
 	CANT_FIL	equ	7
@@ -65,6 +64,9 @@ section .bss
     cant_mov_arriba_izq   resw 500
     cant_mov_abajo_der    resw 500
     cant_mov_abajo_izq    resw 500
+
+    fil resb 1
+    col resb 1
 
 section .text
 
@@ -149,7 +151,16 @@ turno_zorro:
     sub rsp, 8
     call buscar_zorro
     add  rsp, 8
-    ret
+pedir_mov:
+    _printf mensaje_controles_generales
+    _printf mensaje_turno_zorro
+    _gets   fil
+    mov rdi, fil
+    _gets   col
+    mov rcx, col
+    sub rsp, 8
+    call validar_moviento_zorro ;Valida la elección del usuario
+    add rsp, 8
 
 
 buscar_zorro:
@@ -164,8 +175,8 @@ l:
     loop l
 
 guadar_posicion_zorro:
-
-    ret
+    mov byte[pos_zorro],rdi
+    jmp pedir_mov
 
 turno_oca:
     ret
