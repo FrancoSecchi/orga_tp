@@ -243,8 +243,7 @@ imprimir:
     _printf  salto
     mov     byte [posFila], 0
 
-continue_printing:
-    inc     rsi             
+continue_printing:            
     loop    mostrar_loop    
 
     ret
