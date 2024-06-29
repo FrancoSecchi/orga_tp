@@ -188,11 +188,12 @@ elegir_tableroNorte:
 ; va a copiar el cotenido de tabla de memoria apuntado por RSI en RDI
 ; compiar tanto bytes como indicado en rcx
 copiarTablero:
-    mov     rdi, tablero
-    mov     rcx, 49
-    rep movsb
-    ret
+    mov     rdi, tablero   
+    mov     rsi, [rsp + 8] 
+    mov     rcx, 49        
+    rep movsb              
 
+    ret                   
 mostrarTablero:
     _printf indice       ; imprime el índice del tablero
 
