@@ -113,6 +113,7 @@ personalizacionOrientacion:
     mov     al, [input]
     mov     [orientacion], al
     jmp     personalizaTablero
+    ret
 
 orientacionInvalido:
     _printf mensajeCaracterInvalido
@@ -135,7 +136,6 @@ personalizacionOcas:
 simboloOcasInvalido:
     _printf mensajeCaracterInvalido
     jmp personalizacionOcas
-    ret
 
 personalizacionZorro:
     _printf mensajeIngresarSimboloZorro
@@ -152,7 +152,6 @@ personalizacionZorro:
 simboloZorroInvalido:
     _printf mensajeCaracterInvalido
     jmp personalizacionZorro
-    ret
 
 CrearTablero:
     mov     al, [orientacion]
