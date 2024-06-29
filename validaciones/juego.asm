@@ -39,7 +39,6 @@ validar_posicion_oca:
     je      esValido
     jne     mensaje_ingreso_invalido
 
-
 esValido:
     mov     al, "0"
     ret
