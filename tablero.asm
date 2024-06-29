@@ -200,8 +200,6 @@ mostrarTablero:
 
 mostrar_loop:
     mov     al, [rsi]
-    call    determinarSimbolo
-    jmp     imprimir
 
 determinarSimbolo:
     cmp     al, -1
@@ -217,14 +215,17 @@ determinarSimbolo:
 
 imprimirSimboloInvalido:
     mov     al, " "  ; Si el valor es -1, imprime un espacio
+    jmp     imprimir
     ret
 
 imprimirSimboloZorro:
     mov     al, [simboloZorro]
+    jmp     imprimir
     ret
 
 imprimirSimboloOcas:
     mov     al, [simboloOcas]
+    jmp     imprimir
     ret
 
 imprimir:
