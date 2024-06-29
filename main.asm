@@ -281,11 +281,13 @@ mover_oca:
     mov     al, "1"
     mov     ebx, al
 
-    ; falta de verificar si se gana oca o no
+    ;falta de verificar si se gana oca o no
 
     mov     byte [turno_de_zorro_oca], 0 ; cambio el turno
 
-    jmp mostrarTablero
+    sub rsp, 8
+    call mostrarTablero
+    add rsp,8
     ret
 
 
