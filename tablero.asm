@@ -19,8 +19,8 @@ section .data
     orientacionOeste        db "O"
     mensajeIngresarOrientacion  db "Ingrese una orientación. Las opciones se eligen según dónde comienzan las Ocas.",10,"  N - Norte (las ocas comienzan arriba)",10,"  S - Sur (las ocas comienzan abajo)",10,"  E - Este (las ocas comienzan a la derecha)",10,"  O - Oeste (las ocas comienzan a la izquierda)",10,0
     mensajeCaracterInvalido     db "El caracter que se ingresó no es válido.",10,0
-    mensajeIngresarSimboloOcas  db "Ingrese un símbolo para representar las OCAS. No puede ser un espacio ni tampoco el símbolo del zorro.",10,0
-    mensajeIngresarSimboloZorro db "Ingrese un símbolo para representar el ZORRO. No puede ser un espacio ni tampoco el símbolo de las ocas.",10,0
+    mensajeIngresarSimboloOcas  db "Ingrese un símbolo para representar las OCAS. No puede ser un espacio ni tampoco el símbolo del zorro.(Un caracter)",10,0
+    mensajeIngresarSimboloZorro db "Ingrese un símbolo para representar el ZORRO. No puede ser un espacio ni tampoco el símbolo de las ocas.(Un caracter)",10,0
 
     ; Todos los simbolos son un carácter ASCII   
 
