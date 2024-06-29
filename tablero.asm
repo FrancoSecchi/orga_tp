@@ -215,29 +215,25 @@ determinarSimbolo:
     je      imprimirSimboloOcas
 
     jmp     imprimirSimboloInvalido
-    ret
 
 imprimirSimboloInvalido:
     mov     al, " "  ; si el valor es -1 o 0, imprime un espacio
     jmp     imprimir
-    ret
 
 imprimirSimboloZorro:
     mov     al, [simboloZorro]
     jmp     imprimir
-    ret
 
 imprimirSimboloOcas:
     mov     al, [simboloOcas]
     jmp     imprimir
-    ret
 
 imprimir:
     mov     [caracter_actual], al  
     _printf  caracter_actual  
 
-    inc     byte[posFila], 1 
-    cmp     byte [posFila], 6
+    inc     byte[posFila]
+    cmp     byte [posFila], 7
     jne     continue_printing
     ; si es ultimo byte de la fila, salta a siguiente fila
     _printf  salto
