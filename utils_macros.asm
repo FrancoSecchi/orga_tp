@@ -23,7 +23,7 @@ extern system
 %endmacro
 
 %macro _desplazamiento 3
-    mov ebx, [%tablero]
+    mov ebx, [%1]
     mov eax, [%2]
     sub eax, 1 
     imul eax, 8 

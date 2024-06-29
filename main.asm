@@ -8,6 +8,7 @@ extern personalizaTablero
 extern mostrarTablero
 
 %include "utils_macros.asm"
+%include "mostrar_tablero"
 
 section .data
     mensaje_menu             db "Menu principal",10,10,"Vamos a jugar al Zorro y las Ocas!",10,"Seleccione una opción para jugar (ingresar número de opción)",10,"  0 - Nueva partida",10,"  1 - Cargar partida",10,0 
@@ -57,8 +58,6 @@ section .bss
     ; que apunta a la ubicación donde se encuentran las siguientes variables.
     registroDatosPartida    times 0 resb 95 ; Es una etiqueta 
 
-    ;  -1 : lugar invalido, 1: ocas, 2: zorro, 0: lugar vacio 
-    tablero                 resb 49 
 
     cant_mov_izq          resw 500
     cant_mov_der          resw 500
@@ -237,13 +236,25 @@ incrementarCol:
 
     mov     [pos_fil_oca_mov], [pos_col_oca_mov]
     ; Tengo que cheaquear si es valido el movimiento
-    jmp validar_nuevo_posi_oca
+    jmp     validar_nuevo_posi_oca
     ret
 
 decrementarFil:
+    mov     al, [pos_fil_oca_ori]
+    sub     al, 1
+    mov     [pos_fil_oca_mov], al
+
+    mov     [pos_col_oca_mov], [pos_col_oca_ori]
+    jmp     validar_nuevo_posi_oca
     ret
 
 incrementarFil:
+    mov     al, [pos_fil_oca_ori]
+    add     al, 1
+    mov     [pos_fil_oca_mov], al
+
+    mov     [pos_col_oca_mov], [pos_col_oca_ori]
+    jmp     validar_nuevo_posi_oca
     ret
 
 validar_posicion_oca:
@@ -276,6 +287,20 @@ mov_invalido_Oca:
 
 mover_oca:
     ; va a mover la oca
+    _desplazamiento pos_col_oca_ori, pos_fil_oca_ori
+    ; ebx esta apuntado a pos viejo de oca
+    ; cambiar el pos original a 0(vacio)
+    mov     al, "0"
+    mov     ebx, al 
+
+    _desplazamiento pos_col_oca_mov, pos_fil_oca_mov
+    mov     al, "1"
+    mov     ebx, al
+
+    ; falta de verificar si se gana oca o no
+
+    mov     byte [turno_de_zorro_oca], 0 ; cambio el turno
+
     jmp mostrarTablero
     ret
 
