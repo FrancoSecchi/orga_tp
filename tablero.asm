@@ -186,8 +186,8 @@ elegir_tableroNorte:
     mov     rsi, tableroNorte ; pasa la direccion de tabla a rsi
     jmp     copiarTablero
 
-; Va a copiar el cotenido de tabla de memoria apuntado por RSI en RDI
-; Compiar tanto bytes como indicado en rcx
+; va a copiar el cotenido de tabla de memoria apuntado por RSI en RDI
+; compiar tanto bytes como indicado en rcx
 copiarTablero:
     mov     rdi, tablero
     mov     rcx, 49
@@ -195,10 +195,10 @@ copiarTablero:
     ret
 
 mostrarTablero:
-    _printf indice       ; Imprime el índice del tablero
+    _printf indice       ; imprime el índice del tablero
 
-    mov     rsi, tablero  ; rSI apunta al inicio del tablero
-    mov     rcx, 49       ; Número de bytes en el tablero
+    mov     rsi, tablero  ; rsi apunta al inicio del tablero
+    mov     rcx, 49       ; número de bytes en el tablero
 
     mov     byte[posFila], 1
 
@@ -219,7 +219,7 @@ determinarSimbolo:
     ret
 
 imprimirSimboloInvalido:
-    mov     al, " "  ; Si el valor es -1, imprime un espacio
+    mov     al, " "  ; si el valor es -1, imprime un espacio
     jmp     imprimir
     ret
 
