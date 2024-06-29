@@ -1,4 +1,5 @@
 global validar_eleccion_jugada
+global validar_moviento_zorro
 
 section .data
 
@@ -19,3 +20,14 @@ validar_eleccion_jugada:
 opcion_finalizar_juego: 
     mov rax, 2
     ret
+
+validar_moviento_zorro:
+    mov al,[rdi]
+    cmp al,1
+    je opcion_adelante
+
+ejecutar_movimiento:
+    ret
+
+opcion_adelante:
+    ret; aux
