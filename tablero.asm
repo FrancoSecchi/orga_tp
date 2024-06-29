@@ -59,6 +59,9 @@ section .data
     
     indice              db "[   1  2  3  4  5  6  7   ]",10,0
     salto               db 10, 0
+    longFila            db 7
+    posFila             db 1
+    posCola             db 1
 
 section .bss
     input                   resb 1 ; es un char ascii
@@ -67,7 +70,7 @@ section .bss
     simboloZorro            resb 1 ; es un char ascii
     tablero                 resb 49      
     caracter_actual         resb 1
-    posFila                 resb 1
+
 
 
 section .text
@@ -189,21 +192,23 @@ elegir_tableroNorte:
 ; compiar tanto bytes como indicado en rcx
 copiarTablero:
     mov     rdi, tablero   
-    mov     rsi, rsi
     mov     rcx, 49        
     rep movsb              
 
     ret                   
 mostrarTablero:
-    _printf indice       ; imprime el índice del tablero
+    ;_printf indice       ; imprime el índice del tablero
 
-    mov     rsi, tablero  ; rsi apunta al inicio del tablero
-    mov     rcx, 48       ; número de bytes en el tablero
+    mov     rbx, tablero  ; rsi apunta al inicio del tablero
+    mov     rax, qword[posFila]
+    imul    byte[longFila]
 
-    mov     byte[posFila], 0
+    add     rax, qword[posCola]
+    add     rbx, rax
+
 
 mostrar_loop:
-    mov     al, [rsi]
+    mov     al, [rbx]
 
 determinarSimbolo:
     cmp     al, -1
@@ -239,9 +244,14 @@ imprimir:
     ; si es ultimo byte de la fila, salta a siguiente fila
     ;_printf  salto
     mov     byte [posFila], 0
+    inc     byte[posCola]
+
+    cmp     byte[posCola], 8
+    je      terminar_imprimir
 
 continue_printing:      
-    inc     rsi      
-    loop    mostrar_loop    
+    inc     byte[posFila]
+    jmp mostrarTablero
 
+terminar_imprimir:
     ret
