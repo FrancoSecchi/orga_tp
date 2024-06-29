@@ -212,6 +212,7 @@ determinarSimbolo:
     je      imprimirSimboloOcas
 
     jmp     imprimirSimboloInvalido
+    ret
 
 imprimirSimboloInvalido:
     mov     al, " "  ; Si el valor es -1, imprime un espacio
