@@ -56,7 +56,7 @@ section .data
                         db  1, 1, 1, 0, 0, 0, 0
                         db -1,-1, 1, 0, 0,-1,-1 
                         db -1,-1, 1, 1, 1,-1,-1
-    
+
     indice              db "[   1  2  3  4  5  6  7   ]",10,0
     salto               db 10, 0
 
@@ -237,7 +237,7 @@ imprimir:
     jne     continue_printing
 
     ; Si es la última columna, imprime un salto de línea
-    _printf  salto
+    ;_printf  salto
 
     ; Reinicia la posición de la fila para la siguiente fila
     mov     byte[posFila], 0
