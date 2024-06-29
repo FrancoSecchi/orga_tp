@@ -30,39 +30,7 @@ section .data
     ; Todos los simbolos son un carácter ASCII
         
 
-    ;  -1 : lugar invalido, 1: ocas, 2: zorro, 0: lugar vacio 
-    tableroNorte        db -1,-1, 1, 1, 1,-1,-1
-                        db -1,-1, 1, 1, 1,-1,-1
-                        db  1, 1, 1, 1, 1, 1, 1
-                        db  1, 0, 0, 0, 0, 0, 1
-                        db  1, 0, 0, 2, 0, 0, 1
-                        db -1,-1, 0, 0, 0,-1,-1
-                        db -1,-1, 0, 0, 0,-1,-1
     
-    tableroSur          db -1,-1, 0, 0, 0,-1,-1
-                        db -1,-1, 0, 0, 0,-1,-1
-                        db  1, 0, 0, 2, 0, 0, 1
-                        db  1, 0, 0, 0, 0, 0, 1
-                        db  1, 1, 1, 1, 1, 1, 1
-                        db -1,-1, 1, 1, 1,-1,-1
-                        db -1,-1, 1, 1, 1,-1,-1
-    
-    tableroEste         db -1,-1, 1, 1, 1,-1,-1
-                        db -1,-1, 0, 0, 1,-1,-1
-                        db  0, 0, 0, 0, 1, 1, 1
-                        db  0, 0, 2, 0, 1, 1, 1
-                        db  0, 0, 0, 0, 1, 1, 1
-                        db -1,-1, 0, 0, 1,-1,-1
-                        db -1,-1, 1, 1, 1,-1,-1
-
-    tableroOeste        db -1,-1, 1, 1, 1,-1,-1
-                        db -1,-1, 1, 0, 0,-1,-1
-                        db  1, 1, 1, 0, 0, 0, 0
-                        db  1, 1, 1, 0, 2, 0, 0
-                        db  1, 1, 1, 0, 0, 0, 0
-                        db -1,-1, 1, 0, 0,-1,-1 
-                        db -1,-1, 1, 1, 1,-1,-1
-
     posx_zorro      db 0
     posy_zorro      db 0
     
@@ -85,7 +53,8 @@ section .bss
     ; "times 0 resb 95" no reserva espacio adicional, simplemente crea una etiqueta
     ; que apunta a la ubicación donde se encuentran las siguientes variables.
     registroDatosPartida    times 0 resb 95 ; Es una etiqueta 
-    
+
+    ;  -1 : lugar invalido, 1: ocas, 2: zorro, 0: lugar vacio 
     tablero                 resb 49 
 
     cant_mov_izq          resw 500
@@ -147,6 +116,8 @@ jugar:
     sub rsp, 8
     call personalizaTablero
     add rsp, 8
+
+    mov [tablero], rdi ;en rdi esta el dir de tablero
 
     sub rsp, 8
     call mostrarTablero
