@@ -29,11 +29,16 @@ section .data
     ; Variables de partida - en orden específico.
     ; Todos los simbolos son un carácter ASCII
         
-    mover_zorro              db "Ingrese una opción 1: Arriba, 2: Abajo, 3: Izquierda, 4: Derecha, 5: DiagArrIzq, 6: DiagArrDer, 7: DiagAbjIzq, 8: DiagAbjDer, S: Salir", 0
+    mover_zorro                    db "Ingrese una opción 1: Arriba, 2: Abajo, 3: Izquierda, 4: Derecha, 5: DiagArrIzq, 6: DiagArrDer, 7: DiagAbjIzq, 8: DiagAbjDer, S: Salir", 0
+    mensaje_mov_zorro_invalido     db "Movimiento del zorro invalida, ingrese una posicion valida", 10, 0
    ; msj_turno_oca db "Ingresar fil y col: "10,0
 
     mensaje_selec_oca_fila  db "Ingrese fila de la oca que quiere seleccionar o 'S' para salir: ", 0
     mensaje_selec_oca_col   db "Ingrese columna de la oca que quiere seleccionaro 'S' para salir: ", 0
+    mensaje_posicion_ocas_invalido      db "Posicion de oca invalida, ingrese una posicion valida", 0
+
+    mensaje_movi_oca        db "Ingrese una opcion de movimiento 1: Adelante, 2: Izquierda, 3: Derecha, S: Salir: ", 0
+    msgMovInvalido          db "Movimiento invalido, ingrese un movimiento valido", 10, 0
 
     cant_ocas_comido    db 0 
     
@@ -70,12 +75,15 @@ section .bss
     ; voy a actual la pos de zorro cada moviento
     pos_fil_zorro       resb 1
     pos_col_zorro       resb 1
+    movi_zorro          resb 1
 
     pos_col_oca_ori     resb 1 
     pos_fil_oca_ori     resb 1
 
     pos_fil_oca_mov     resb 1
     pos_col_oca_mov     resb 1
+
+    movi_oca            resb 1
 
 
 
@@ -191,18 +199,59 @@ guadar_posicion_zorro:
 
 turno_oca:
     _printf mensaje_selec_oca_fila
-    _gets pos_fil_oca_mov
+    _gets pos_fil_oca_ori
     mov rdi, pos_col_oca_mov
     call chequear_si_terminar_el_juego
 
     _printf mensaje_selec_oca_col
-    _gets pos_col_oca_mov
+    _gets pos_col_oca_ori
     mov rdi, pos_col_oca_mov
     call chequear_si_terminar_el_juego
+
     
     ; Ahora ya tengo dos indices
+    call validar_posicion_oca
+    ; si es 0 significar es valido la posicion
+    cmp     al, "0"
+    jne     turno_oca
 
+recibir_movimienro_oca:
+    _printf mensaje_movi_oca
+    _gets   movi_zorro
+    call    chequear_si_terminar_el_juego
+
+    cmp byte [moverOcaA], '1'
+    je incrementarCol
+    cmp byte [moverOcaA], '2'
+    je decrementarFil
+    cmp byte [moverOcaA], '3'
+    je incrementarFil
+
+incrementarCol:
     ret
+
+decrementarFil:
+    ret
+
+incrementarFil:
+    ret
+
+
+validar_posicion_oca:
+    _buscar_caracter pos_fil_oca_ori, pos_col_oca_ori
+    cmp     al, "0"
+    je      esValido
+    jne     mensaje_ingreso_invalido
+
+esValido:
+    mov     al, "0"
+    ret
+
+mensaje_ingreso_invalido:
+    _printf mensaje_posicion_ocas_invalido
+    jmp     turno_oca
+    ret
+
 
 chequear_si_terminar_el_juego:
     cmp byte [rdi], 'S'

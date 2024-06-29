@@ -34,7 +34,7 @@ extern system
     add ebx, ecx
 %endmacro 
 
-%macro buscar_caracter 2
+%macro _buscar_caracter 2
     ; en ebx tengo la direccion de memoria de la posicion que quiero ver
     ; el caracter se devuelve en 'al'
     mDesplazamiento %1, %2
