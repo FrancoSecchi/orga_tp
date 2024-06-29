@@ -239,12 +239,12 @@ imprimir:
     inc     rsi             
     cmp     byte [posFila], 7
     jne     continue_printing
-    ; If end of row, print newline and reset column counter
+    ; si es ultimo byte de la fila, salta a siguiente fila
     _printf  salto
     mov     byte [posFila], 0
 
 continue_printing:
-    inc     rsi             ; Move to next byte in tablero
-    loop    mostrar_loop    ; Continue loop until all bytes printed
+    inc     rsi             
+    loop    mostrar_loop    ;
 
     ret
