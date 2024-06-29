@@ -24,23 +24,22 @@ section .data
 
     mensaje_turno_zorro     db "Es el turno del zorro",10,0
     mensaje_turno_oca       db "Es el turno de las ocas",10,0
-    turno_de_zorro_oca    db 0 ;si es el turno del zorro le sumo 1, si es el turno de la oca --> le resto 1
+    turno_de_zorro_oca      db 0 ;si es el turno del zorro le sumo 1, si es el turno de la oca --> le resto 1
 
     ; Variables de partida - en orden específico.
     ; Todos los simbolos son un carácter ASCII
         
-    msj_turno_zorro db "Ingresar fil y col: ",10,0
+    mover_zorro              db "Ingrese una opción 1: Arriba, 2: Abajo, 3: Izquierda, 4: Derecha, 5: DiagArrIzq, 6: DiagArrDer, 7: DiagAbjIzq, 8: DiagAbjDer, S: Salir", 0
    ; msj_turno_oca db "Ingresar fil y col: "10,0
-    pos_zorro      db 0
+
+    mensaje_selec_oca_fila  db "Ingrese fila de la oca que quiere seleccionar o 'S' para salir: ", 0
+    mensaje_selec_oca_col   db "Ingrese columna de la oca que quiere seleccionaro 'S' para salir: ", 0
+
+    cant_ocas_comido    db 0 
     
 	LONG_ELEM	equ	1
 	CANT_FIL	equ	7
 	CANT_COL	equ	7
-
-
-
-
-
 
 section .bss
 
@@ -65,8 +64,20 @@ section .bss
     cant_mov_abajo_der    resw 500
     cant_mov_abajo_izq    resw 500
 
-    fil resb 1
-    col resb 1
+    fil                   resb 1
+    col                   resb 1
+
+    ; voy a actual la pos de zorro cada moviento
+    pos_fil_zorro       resb 1
+    pos_col_zorro       resb 1
+
+    pos_col_oca_ori     resb 1 
+    pos_fil_oca_ori     resb 1
+
+    pos_fil_oca_mov     resb 1
+    pos_col_oca_mov     resb 1
+
+
 
 section .text
 
@@ -124,11 +135,9 @@ jugar:
     sub rsp, 8
     call mostrarTablero
     add rsp,8
-
+; ----------------------------------------------
 ingresar_jugada: 
  
-
-
     _gets buffer_input
     mov rdi, buffer_input
     sub rsp, 8
@@ -181,8 +190,24 @@ guadar_posicion_zorro:
     jmp pedir_mov
 
 turno_oca:
+    _printf mensaje_selec_oca_fila
+    _gets pos_fil_oca_mov
+    mov rdi, pos_col_oca_mov
+    call chequear_si_terminar_el_juego
+
+    _printf mensaje_selec_oca_col
+    _gets pos_col_oca_mov
+    mov rdi, pos_col_oca_mov
+    call chequear_si_terminar_el_juego
+    
+    ; Ahora ya tengo dos indices
+
     ret
 
+chequear_si_terminar_el_juego:
+    cmp byte [rdi], 'S'
+    je finalizar_juego
+    ret
 
 finalizar_juego: 
     _printf mensaje_final
