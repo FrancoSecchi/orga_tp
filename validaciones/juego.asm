@@ -27,4 +27,7 @@ validar_moviento_zorro:
     je opcion_adelante
 
 ejecutar_movimiento:
-    mov 
+    ret
+
+opcion_adelante:
+    ret; aux

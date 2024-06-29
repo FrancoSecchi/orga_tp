@@ -29,7 +29,7 @@ section .data
     ; Variables de partida - en orden específico.
     ; Todos los simbolos son un carácter ASCII
         
-    msj_turno_zorro db "Ingresar fil y col: "10,0
+    msj_turno_zorro db "Ingresar fil y col: ",10,0
    ; msj_turno_oca db "Ingresar fil y col: "10,0
     pos_zorro      db 0
     
@@ -162,6 +162,8 @@ pedir_mov:
     call validar_moviento_zorro ;Valida la elección del usuario
     add rsp, 8
 
+validar_moviento_zorro:
+    ret;aux
 
 buscar_zorro:
     mov rcx,49
@@ -175,7 +177,7 @@ l:
     loop l
 
 guadar_posicion_zorro:
-    mov byte[pos_zorro],rdi
+    mov qword[pos_zorro],rdi
     jmp pedir_mov
 
 turno_oca:
