@@ -219,7 +219,7 @@ determinarSimbolo:
     ret
 
 imprimirSimboloInvalido:
-    mov     al, " "  ; si el valor es -1, imprime un espacio
+    mov     al, " "  ; si el valor es -1 o 0, imprime un espacio
     jmp     imprimir
     ret
 
