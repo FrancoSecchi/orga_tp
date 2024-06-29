@@ -209,7 +209,6 @@ turno_oca:
     mov rdi, pos_col_oca_ori
     call chequear_si_terminar_el_juego
 
-    
     ; Ahora ya tengo dos indices
     call validar_posicion_oca
     ; si es 0 significar es valido la posicion, si es distinto, volver a pedir posicion
@@ -236,7 +235,11 @@ incrementarCol:
 
     mov     [pos_fil_oca_mov], [pos_col_oca_mov]
     ; Tengo que cheaquear si es valido el movimiento
-    jmp     validar_nuevo_posi_oca
+    call     validar_nuevo_posi_oca
+
+    cmp     al, "0"
+    je      mover_oca
+    jmp     turno_oca
     ret
 
 decrementarFil:
@@ -245,7 +248,11 @@ decrementarFil:
     mov     [pos_fil_oca_mov], al
 
     mov     [pos_col_oca_mov], [pos_col_oca_ori]
-    jmp     validar_nuevo_posi_oca
+    call     validar_nuevo_posi_oca
+
+    cmp     al, "0"
+    je      mover_oca
+    jmp     turno_oca
     ret
 
 incrementarFil:
@@ -254,35 +261,12 @@ incrementarFil:
     mov     [pos_fil_oca_mov], al
 
     mov     [pos_col_oca_mov], [pos_col_oca_ori]
-    jmp     validar_nuevo_posi_oca
-    ret
+    call     validar_nuevo_posi_oca
 
-validar_posicion_oca:
-    _buscar_caracter pos_fil_oca_ori, pos_col_oca_ori
     cmp     al, "0"
-    je      esValido
-    jne     mensaje_ingreso_invalido
-
-esValido:
-    mov     al, "0"
-    ret
-
-mensaje_ingreso_invalido:
-    _printf mensaje_posicion_ocas_invalido
-    jmp     turno_oca
-    ret
-
-validar_nuevo_posi_oca:
-    ; veo que la oca no se pueda mover a una posicion ocupada o que no sea un '-' (lugar vacio)
-    _buscar_caracter pos_fil_oca_mov, pos_col_oca_mov
-    cmp     al, '0'
     je      mover_oca
-    jne     mov_invalido_Oca
+    jmp     turno_oca
 
-mov_invalido_Oca:
-    ; voy a volver a pedir a seleccionar oca
-    _printf mensaje_movi_oca_invalido
-    jmp turno_oca
     ret
 
 mover_oca:

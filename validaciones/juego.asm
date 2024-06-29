@@ -1,5 +1,6 @@
 global validar_eleccion_jugada
 global validar_moviento_zorro
+global validar_posicion_oca
 
 section .data
 
@@ -31,3 +32,33 @@ ejecutar_movimiento:
 
 opcion_adelante:
     ret; aux
+
+validar_posicion_oca:
+    _buscar_caracter pos_fil_oca_ori, pos_col_oca_ori
+    cmp     al, "0"
+    je      esValido
+    jne     mensaje_ingreso_invalido
+
+
+esValido:
+    mov     al, "0"
+    ret
+
+
+mensaje_ingreso_invalido:
+    _printf mensaje_posicion_ocas_invalido
+    mov     al, "-1"
+    ret
+
+validar_nuevo_posi_oca:
+    ; veo que la oca no se pueda mover a una posicion ocupada o que no sea un '-' (lugar vacio)
+    _buscar_caracter pos_fil_oca_mov, pos_col_oca_mov
+    cmp     al, '0'
+    je      esValido
+    jne     mov_invalido_Oca
+
+mov_invalido_Oca:
+    ; voy a volver a pedir a seleccionar oca
+    _printf mensaje_movi_oca_invalido
+    mov     al, "-1"
+    ret
