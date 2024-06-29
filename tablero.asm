@@ -242,7 +242,7 @@ imprimir:
     cmp     byte [posFila], 7
     jne     continue_printing
     ; si es ultimo byte de la fila, salta a siguiente fila
-    ;_printf  salto
+    _printf  salto
     mov     byte [posFila], 0
     inc     byte[posCola]
 
