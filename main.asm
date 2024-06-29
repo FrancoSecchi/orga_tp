@@ -158,13 +158,13 @@ buscar_zorro:
     mov rdi,0
 l:
     mov ax,[rbx+rdi]
-    ret;sacar
-    ;cmp ax,[]   ;aca va el simbolo de el zorro
+    cmp ax,2   ;aca va el simbolo de el zorro ─> 2
     je  guadar_posicion_zorro
     inc rdi
     loop l
 
 guadar_posicion_zorro:
+
     ret
 
 turno_oca:
