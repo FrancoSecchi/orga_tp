@@ -239,7 +239,7 @@ imprimir:
     _printf  caracter_actual  
 
     inc     byte[posFila]
-    cmp     byte [posFila], 7
+    cmp     byte [posFila], 8
     jne     continue_printing
     ; si es ultimo byte de la fila, salta a siguiente fila
     _printf  salto
