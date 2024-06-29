@@ -200,12 +200,12 @@ guadar_posicion_zorro:
 turno_oca:
     _printf mensaje_selec_oca_fila
     _gets pos_fil_oca_ori
-    mov rdi, pos_col_oca_mov
+    mov rdi, pos_col_oca_ori
     call chequear_si_terminar_el_juego
 
     _printf mensaje_selec_oca_col
     _gets pos_col_oca_ori
-    mov rdi, pos_col_oca_mov
+    mov rdi, pos_col_oca_ori
     call chequear_si_terminar_el_juego
 
     
