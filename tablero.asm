@@ -19,8 +19,8 @@ section .data
     orientacionOeste        db "O"
     mensajeIngresarOrientacion  db "Ingrese una orientación. Las opciones se eligen según dónde comienzan las Ocas.",10,"  N - Norte (las ocas comienzan arriba)",10,"  S - Sur (las ocas comienzan abajo)",10,"  E - Este (las ocas comienzan a la derecha)",10,"  O - Oeste (las ocas comienzan a la izquierda)",10,0
     mensajeCaracterInvalido     db "El caracter que se ingresó no es válido.",10,0
-    mensajeIngresarSimboloOcas  db "Ingrese un símbolo para representar las OCAS. No puede ser un espacio ni tampoco el símbolo del zorro.",10,0
-    mensajeIngresarSimboloZorro db "Ingrese un símbolo para representar el ZORRO. No puede ser un espacio ni tampoco el símbolo de las ocas.",10,0
+    mensajeIngresarSimboloOcas  db "Ingrese un símbolo para representar las OCAS. No puede ser un espacio ni tampoco el símbolo del zorro.(Un caracter)",10,0
+    mensajeIngresarSimboloZorro db "Ingrese un símbolo para representar el ZORRO. No puede ser un espacio ni tampoco el símbolo de las ocas.(Un caracter)",10,0
 
     ; Todos los simbolos son un carácter ASCII   
 
@@ -58,6 +58,7 @@ section .data
                         db -1,-1, 1, 1, 1,-1,-1
     
     indice              db "[   1  2  3  4  5  6  7   ]",10,0
+    salto               db 0
 
 section .bss
     input                   resb 1 ; es un char ascii
@@ -66,6 +67,7 @@ section .bss
     simboloZorro            resb 1 ; es un char ascii
     tablero                 resb 49      
     caracter_actual         resb 1
+    posFila                 resb 1
 
 
 section .text
@@ -184,8 +186,8 @@ elegir_tableroNorte:
     mov     rsi, tableroNorte ; pasa la direccion de tabla a rsi
     jmp     copiarTablero
 
-; Va a copiar el cotenido de tabla de memoria apuntado por RSI en RDI
-; Compiar tanto bytes como indicado en rcx
+; va a copiar el cotenido de tabla de memoria apuntado por RSI en RDI
+; compiar tanto bytes como indicado en rcx
 copiarTablero:
     mov     rdi, tablero
     mov     rcx, 49
@@ -193,10 +195,12 @@ copiarTablero:
     ret
 
 mostrarTablero:
-    _printf indice       ; Imprime el índice del tablero
+    _printf indice       ; imprime el índice del tablero
 
-    mov     rsi, tablero  ; rSI apunta al inicio del tablero
-    mov     rcx, 49       ; Número de bytes en el tablero
+    mov     rsi, tablero  ; rsi apunta al inicio del tablero
+    mov     rcx, 49       ; número de bytes en el tablero
+
+    mov     byte[posFila], 0
 
 mostrar_loop:
     mov     al, [rsi]
@@ -212,9 +216,10 @@ determinarSimbolo:
     je      imprimirSimboloOcas
 
     jmp     imprimirSimboloInvalido
+    ret
 
 imprimirSimboloInvalido:
-    mov     al, " "  ; Si el valor es -1, imprime un espacio
+    mov     al, " "  ; si el valor es -1 o 0, imprime un espacio
     jmp     imprimir
     ret
 
@@ -231,7 +236,14 @@ imprimirSimboloOcas:
 imprimir:
     mov     [caracter_actual], al  
     _printf  caracter_actual        
-    inc     rsi                     
-    loop    mostrar_loop            
+    inc     rsi             
+    cmp     byte [posFila], 6
+    jne     continue_printing
+    ; si es ultimo byte de la fila, salta a siguiente fila
+    _printf  salto
+    mov     byte [posFila], 0
+
+continue_printing:            
+    loop    mostrar_loop    
 
     ret
