@@ -29,8 +29,8 @@ section .data
     ; Variables de partida - en orden específico.
     ; Todos los simbolos son un carácter ASCII
         
-    mensaje_turno_zorro db "Ingresar fil y col: "10,0
-    mensaje_turno_oca db "Ingresar fil y col: "10,0
+    msj_turno_zorro db "Ingresar fil y col: "10,0
+   ; msj_turno_oca db "Ingresar fil y col: "10,0
     pos_zorro      db 0
     
 	LONG_ELEM	equ	1
@@ -153,7 +153,7 @@ turno_zorro:
     add  rsp, 8
 pedir_mov:
     _printf mensaje_controles_generales
-    _printf mensaje_turno_zorro
+    _printf msj_turno_zorro
     _gets   fil
     mov rdi, fil
     _gets   col
