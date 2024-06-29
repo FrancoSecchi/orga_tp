@@ -189,7 +189,7 @@ elegir_tableroNorte:
 ; compiar tanto bytes como indicado en rcx
 copiarTablero:
     mov     rdi, tablero   
-    mov     rsi, [rsp + 8] 
+    mov     rsi, rsi
     mov     rcx, 49        
     rep movsb              
 
