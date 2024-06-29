@@ -30,7 +30,7 @@ section .data
     ; Todos los simbolos son un carácter ASCII
         
     mover_zorro                    db "Ingrese una opción 1: Arriba, 2: Abajo, 3: Izquierda, 4: Derecha, 5: DiagArrIzq, 6: DiagArrDer, 7: DiagAbjIzq, 8: DiagAbjDer, S: Salir", 0
-    mensaje_mov_zorro_invalido     db "Movimiento del zorro invalida, ingrese una posicion valida", 10, 0
+    mensaje_movi_zorro_invalido     db "Movimiento del zorro invalida, ingrese una posicion valida", 10, 0
    ; msj_turno_oca db "Ingresar fil y col: "10,0
 
     mensaje_selec_oca_fila  db "Ingrese fila de la oca que quiere seleccionar o 'S' para salir: ", 0
@@ -38,7 +38,7 @@ section .data
     mensaje_posicion_ocas_invalido      db "Posicion de oca invalida, ingrese una posicion valida", 0
 
     mensaje_movi_oca        db "Ingrese una opcion de movimiento 1: Adelante, 2: Izquierda, 3: Derecha, S: Salir: ", 0
-    msgMovInvalido          db "Movimiento invalido, ingrese un movimiento valido", 10, 0
+    mensaje_movi_oca_invalido          db "Movimiento invalido, ingrese un movimiento valido", 10, 0
 
     cant_ocas_comido    db 0 
     
@@ -200,34 +200,44 @@ guadar_posicion_zorro:
 turno_oca:
     _printf mensaje_selec_oca_fila
     _gets pos_fil_oca_ori
+    ; recibo un num de fil, si ingresa S significa salir del juego
     mov rdi, pos_col_oca_ori
     call chequear_si_terminar_el_juego
 
     _printf mensaje_selec_oca_col
     _gets pos_col_oca_ori
+    ; recibo un num de col, si ingresa S significa salir del juego
     mov rdi, pos_col_oca_ori
     call chequear_si_terminar_el_juego
 
     
     ; Ahora ya tengo dos indices
     call validar_posicion_oca
-    ; si es 0 significar es valido la posicion
+    ; si es 0 significar es valido la posicion, si es distinto, volver a pedir posicion
     cmp     al, "0"
     jne     turno_oca
 
 recibir_movimienro_oca:
     _printf mensaje_movi_oca
     _gets   movi_zorro
+    ; si es s, salir el juego
     call    chequear_si_terminar_el_juego
 
-    cmp byte [moverOcaA], '1'
-    je incrementarCol
-    cmp byte [moverOcaA], '2'
-    je decrementarFil
-    cmp byte [moverOcaA], '3'
-    je incrementarFil
+    cmp     byte [moverOcaA], '1'
+    je      incrementarCol
+    cmp     byte [moverOcaA], '2'
+    je      decrementarFil
+    cmp     byte [moverOcaA], '3'
+    je      incrementarFil
 
 incrementarCol:
+    mov     al, [pos_col_oca_ori]
+    add     al, 1
+    mov     [pos_col_oca_mov], al
+
+    mov     [pos_fil_oca_mov], [pos_col_oca_mov]
+    ; Tengo que cheaquear si es valido el movimiento
+    jmp validar_nuevo_posi_oca
     ret
 
 decrementarFil:
@@ -235,7 +245,6 @@ decrementarFil:
 
 incrementarFil:
     ret
-
 
 validar_posicion_oca:
     _buscar_caracter pos_fil_oca_ori, pos_col_oca_ori
@@ -250,6 +259,24 @@ esValido:
 mensaje_ingreso_invalido:
     _printf mensaje_posicion_ocas_invalido
     jmp     turno_oca
+    ret
+
+validar_nuevo_posi_oca:
+    ; veo que la oca no se pueda mover a una posicion ocupada o que no sea un '-' (lugar vacio)
+    _buscar_caracter pos_fil_oca_mov, pos_col_oca_mov
+    cmp     al, '0'
+    je      mover_oca
+    jne     mov_invalido_Oca
+
+mov_invalido_Oca:
+    ; voy a volver a pedir a seleccionar oca
+    _printf mensaje_movi_oca_invalido
+    jmp turno_oca
+    ret
+
+mover_oca:
+    ; va a mover la oca
+    jmp mostrarTablero
     ret
 
 
