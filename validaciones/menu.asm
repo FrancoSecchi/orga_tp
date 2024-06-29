@@ -18,7 +18,6 @@ section .data
 
 section .bss
     caracter_ingresado                    resb 1
-
 section .text
 
 validar_eleccion_menu:

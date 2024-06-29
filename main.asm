@@ -6,6 +6,7 @@ extern validar_eleccion_menu
 extern validar_eleccion_jugada
 extern personalizaTablero
 extern mostrarTablero
+extern tablero
 
 %include "utils_macros.asm"
 %include "mostrar_tablero"
@@ -36,10 +37,10 @@ section .data
 
     mensaje_selec_oca_fila  db "Ingrese fila de la oca que quiere seleccionar o 'S' para salir: ", 0
     mensaje_selec_oca_col   db "Ingrese columna de la oca que quiere seleccionaro 'S' para salir: ", 0
-    mensaje_posicion_ocas_invalido      db "Posicion de oca invalida, ingrese una posicion valida", 0
+
 
     mensaje_movi_oca        db "Ingrese una opcion de movimiento 1: Adelante, 2: Izquierda, 3: Derecha, S: Salir: ", 0
-    mensaje_movi_oca_invalido          db "Movimiento invalido, ingrese un movimiento valido", 10, 0
+    
 
     cant_ocas_comido    db 0 
     
@@ -136,8 +137,6 @@ jugar:
     sub rsp, 8
     call personalizaTablero
     add rsp, 8
-
-    mov [tablero], rdi ;en rdi esta el dir de tablero
 
     sub rsp, 8
     call mostrarTablero

@@ -2,12 +2,21 @@ global validar_eleccion_jugada
 global validar_moviento_zorro
 global validar_posicion_oca
 
+extern pos_fil_oca_mov
+extern pos_col_oca_mov
+extern pos_col_oca_ori
+extern pos_fil_oca_ori
+
+
 section .data
 
     caracter_salir_juego db "S",0
 
 section .bss
     caracter_ingresado  resb 1
+    mensaje_posicion_ocas_invalido      db "Posicion de oca invalida, ingrese una posicion valida", 0
+    mensaje_movi_oca_invalido          db "Movimiento invalido, ingrese un movimiento valido", 0
+
 section .text
 
 validar_eleccion_jugada: 
@@ -60,3 +69,6 @@ mov_invalido_Oca:
     _printf mensaje_movi_oca_invalido
     mov     al, "-1"
     ret
+
+validar_ganar_ocas:
+    ; tengo que chequear si el zorro queda "acorralado"

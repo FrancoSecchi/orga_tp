@@ -2,7 +2,7 @@
 
 global personalizaTablero
 global mostrarTablero
-global mostrar_tablero
+global tablero
 
 
 extern validarOrientacion
