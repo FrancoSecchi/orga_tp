@@ -9,13 +9,12 @@ extern pos_fil_oca_ori
 
 
 section .data
-
     caracter_salir_juego db "S",0
+    mensaje_posicion_ocas_invalido      db "Posicion de oca invalida, ingrese una posicion valida", 0
+    mensaje_movi_oca_invalido           db "Movimiento invalido, ingrese un movimiento valido", 0
 
 section .bss
-    caracter_ingresado  resb 1
-    mensaje_posicion_ocas_invalido      db "Posicion de oca invalida, ingrese una posicion valida", 0
-    mensaje_movi_oca_invalido          db "Movimiento invalido, ingrese un movimiento valido", 0
+    caracter_ingresado                  resb 1
 
 section .text
 
