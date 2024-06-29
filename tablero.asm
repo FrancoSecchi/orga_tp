@@ -58,7 +58,7 @@ section .data
                         db -1,-1, 1, 1, 1,-1,-1
     
     indice              db "[   1  2  3  4  5  6  7   ]",10,0
-    salto               db 0
+    salto               db 10, 0
 
 section .bss
     input                   resb 1 ; es un char ascii
@@ -234,15 +234,17 @@ imprimirSimboloOcas:
 
 imprimir:
     mov     [caracter_actual], al  
-    _printf  caracter_actual        
-    inc     rsi             
+    _printf  caracter_actual  
+
+    inc     byte[posFila], 1 
     cmp     byte [posFila], 6
     jne     continue_printing
     ; si es ultimo byte de la fila, salta a siguiente fila
     _printf  salto
     mov     byte [posFila], 0
 
-continue_printing:            
+continue_printing:      
+    inc     rsi      
     loop    mostrar_loop    
 
     ret
