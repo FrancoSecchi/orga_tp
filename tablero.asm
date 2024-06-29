@@ -187,24 +187,21 @@ elegir_tableroNorte:
 
 ; va a copiar el cotenido de tabla de memoria apuntado por RSI en RDI
 ; compiar tanto bytes como indicado en rcx
-copiarTablero:
-    mov     rdi, tablero
-    mov     rcx, 49
-    rep movsb
-    ret
-
 mostrarTablero:
-    _printf indice       ; imprime el índice del tablero
+    ; Imprime el índice del tablero
+    _printf indice
 
-    mov     rsi, tablero  ; rsi apunta al inicio del tablero
-    mov     rcx, 49       ; número de bytes en el tablero
+    ; Inicialización de registros y variables
+    mov     rsi, tablero  ; RSI apunta al inicio del tablero
+    mov     rcx, 49       ; Número total de bytes en el tablero (7x7)
 
-    mov     byte[posFila], 0
+    mov     byte[posFila], 0  ; Inicializa la posición de la fila a 0
 
 mostrar_loop:
+    ; Carga el valor de la celda actual en AL
     mov     al, [rsi]
 
-determinarSimbolo:
+    ; Determina qué símbolo imprimir según el valor de la celda
     cmp     al, -1
     je      imprimirSimboloInvalido
 
@@ -214,33 +211,39 @@ determinarSimbolo:
     cmp     al, 1
     je      imprimirSimboloOcas
 
+    ; Si el valor es inválido, imprime un espacio
     jmp     imprimirSimboloInvalido
 
 imprimirSimboloInvalido:
-    mov     al, " "  ; si el valor es -1 o 0, imprime un espacio
+    mov     al, ' '  ; Carácter de espacio para valores inválidos o vacíos
     jmp     imprimir
 
 imprimirSimboloZorro:
-    mov     al, [simboloZorro]
+    mov     al, [simboloZorro]  ; Imprime el símbolo del zorro
     jmp     imprimir
 
 imprimirSimboloOcas:
-    mov     al, [simboloOcas]
+    mov     al, [simboloOcas]   ; Imprime el símbolo de las ocas
     jmp     imprimir
 
 imprimir:
-    mov     [caracter_actual], al  
-    _printf  caracter_actual  
+    mov     [caracter_actual], al  ; Guarda el carácter a imprimir
+    _printf  caracter_actual  ; Imprime el carácter
 
-    inc     byte[posFila]
-    cmp     byte [posFila], 7
+    inc     byte[posFila]  ; Incrementa la posición de la fila
+
+    ; Verifica si se ha completado la fila actual
+    cmp     byte[posFila], 7
     jne     continue_printing
-    ; si es ultimo byte de la fila, salta a siguiente fila
-    _printf  salto
-    mov     byte [posFila], 0
 
-continue_printing:      
-    inc     rsi      
-    loop    mostrar_loop    
+    ; Si es la última columna, imprime un salto de línea
+    _printf  salto
+
+    ; Reinicia la posición de la fila para la siguiente fila
+    mov     byte[posFila], 0
+
+continue_printing:
+    inc     rsi  ; Avanza al siguiente byte en el tablero
+    loop    mostrar_loop  ; Repite hasta mostrar todo el tablero
 
     ret
