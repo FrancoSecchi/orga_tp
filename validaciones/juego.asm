@@ -44,7 +44,6 @@ esValido:
     mov     al, "0"
     ret
 
-
 mensaje_ingreso_invalido:
     _printf mensaje_posicion_ocas_invalido
     mov     al, "-1"
