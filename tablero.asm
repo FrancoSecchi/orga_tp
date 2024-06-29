@@ -200,7 +200,7 @@ mostrarTablero:
     mov     rsi, tablero  ; rsi apunta al inicio del tablero
     mov     rcx, 49       ; número de bytes en el tablero
 
-    mov     byte[posFila], 1
+    mov     byte[posFila], 0
 
 mostrar_loop:
     mov     al, [rsi]
@@ -237,7 +237,7 @@ imprimir:
     mov     [caracter_actual], al  
     _printf  caracter_actual        
     inc     rsi             
-    cmp     byte [posFila], 7
+    cmp     byte [posFila], 6
     jne     continue_printing
     ; si es ultimo byte de la fila, salta a siguiente fila
     _printf  salto
@@ -245,6 +245,6 @@ imprimir:
 
 continue_printing:
     inc     rsi             
-    loop    mostrar_loop    ;
+    loop    mostrar_loop    
 
     ret
