@@ -197,7 +197,7 @@ mostrarTablero:
     _printf indice       ; imprime el índice del tablero
 
     mov     rsi, tablero  ; rsi apunta al inicio del tablero
-    mov     rcx, 49       ; número de bytes en el tablero
+    mov     rcx, 48       ; número de bytes en el tablero
 
     mov     byte[posFila], 0
 
